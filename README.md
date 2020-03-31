@@ -10,7 +10,7 @@ jluthesis 原档存储于 google code，但已无法下载。<br/>
 
 ## 示例
 
-示例文档见 [example.pdf](https://github.com/maxuewei2/JLUMasterThesisLaTeX/blob/master/example.pdf)
+示例文档见 [example-onesidecover.pdf](https://github.com/maxuewei2/JLUMasterThesisLaTeX/blob/master/example-onesidecover.pdf) 和 [example-twosidecover.pdf](https://github.com/maxuewei2/JLUMasterThesisLaTeX/blob/master/example-twosidecover.pdf)
 
 ## 使用
 
