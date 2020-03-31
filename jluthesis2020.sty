@@ -541,8 +541,8 @@
 	    pdftitle={\Title},    % title
 	    pdfsubject={学位论文},   % subject of the document
 	    pdfauthor={\Author},     % author
-	    pdfcreator={},   % creator of the document
-	    pdfproducer={},  % producer of the document Microsoft® PowerPoint® 2010
+	    %pdfcreator={},   % creator of the document
+	    %pdfproducer={},  % producer of the document Microsoft® PowerPoint® 2010
 	    pdfkeywords={\Keywords}, % list of keywords
 	    pdfinfo={
 	CreationDate={\Date},%20191219071209
@@ -637,16 +637,24 @@
   {
   \newlength{\jlutextwidthone}
   \newlength{\jlutextwidthtwo}
+  \newlength{\jlutextwidththree}
 
   \xiaosi \bfseries
   \parbox[t][2.2cm][t]{\textwidth}{
     \settowidth{\jlutextwidthone}{研究生学号}
     \settowidth{\jlutextwidthtwo}{单位代码}
+    \settowidth{\jlutextwidththree}{10183}
 
-    \makebox[\jlutextwidthone][s]{分类号} \makebox[7.8cm][l]{：\@classification}%
-    \makebox[\jlutextwidthtwo][s]{单位代码}   \makebox[2cm][l]{：\@collegenumber}\\
-    \makebox[\jlutextwidthone][s]{研究生学号}  \makebox[7.8cm][l]{：\@studnumber}%    
-    \makebox[\jlutextwidthtwo][s]{密级}       \makebox[2cm][l]{：\@securitylevel}%
+    \makebox[\jlutextwidthone][s]{分类号} 
+    \makebox[7.8cm][l]{：\@classification}%
+    \makebox[\jlutextwidthtwo][s]{单位代码}： 
+   %\makebox[2cm][l]{：}
+    \makebox[\jlutextwidththree][s]{\@collegenumber}\\
+    \makebox[\jlutextwidthone][s]{研究生学号}  
+    \makebox[7.8cm][l]{：\@studnumber}%    
+    \makebox[\jlutextwidthtwo][s]{密级}：       
+   %\makebox[2cm][l]{：}%
+    \makebox[\jlutextwidththree][s]{\@securitylevel}
   }
   }
   \begin{center}

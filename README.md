@@ -39,5 +39,5 @@ jluthesis 原档存储于 google code，但已无法下载。<br/>
 
 ## 联系方法
 
-maxuewei1995 at 126点com
+maxuewei1995 at 126 dot com
 
