@@ -1,0 +1,852 @@
+% Template Package for writing master's thesis for Jilin University
+% by: Ma Xuewei, for graduate thesis in 2020.03
+% 吉林大学硕士论文 TeX 模板
+%
+% 此模板写于 2020 年 3 月 31 日，主要参考 jluthesis 
+% 及我在写毕业论文时自己用 LaTeX 实现的 2020 年吉林大学研究生学位论文撰写及装帧规范。
+% 因个人 TeX 能力有限且我自己的实现看起来很乱，所以参考 jluthesis 进行模板化修改产生此模板。
+% 感谢实现 jluthesis 并开源的前辈 Zhang Yinhe。
+% jluthesis 原档存储于 google code，但已无法下载。
+% 本文参考的 jluthesis 下载于 https://github.com/dartall/jluthesis
+%
+% 使用XeTeX系统处理源文件，方便直接使用系统的truetype或opentype字体
+% 参考了XJTUthesis.cls, HIT-pluto-PhD, 
+% 可用的选项：
+% debug: 草稿时使用
+% ebook: 输出电子版（带彩色文字的pdf）
+% hardcopy: 输出打印版（不带彩色文字的pdf）
+%
+% N.B.
+% @: 所有的居中行都需要使用\noindent来消除首行缩进，
+%    并且要在变换字号的命令如 \sihao 之后使用，因为\parindent被修改了
+% @: {\centering }需要使用\\来断行居中
+% @: 
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{jluthesis2020}
+  [2020/03/31 v0.01 Master's thesis template for JLU]
+
+\newif\if@JLU@debug
+\newif\if@JLU@ebook
+\newif\if@JLU@hardcopy
+\DeclareOption{debug}{\@JLU@debugtrue\@JLU@ebookfalse\@JLU@hardcopyfalse}
+\DeclareOption{ebook}{\@JLU@ebooktrue\@JLU@debugfalse\@JLU@hardcopyfalse}
+\DeclareOption{hardcopy}{\@JLU@hardcopytrue\@JLU@debugfalse\@JLU@ebookfalse}
+
+% 其它的选项有用的无用的都交给 geometry 宏包处理，为了省事
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{geometry}}
+
+
+
+
+
+\ExecuteOptions{hardcopy}  % 默认输出打印版
+\ProcessOptions
+
+\RequirePackage[a4paper,top=1.02in,bottom=1.3in,right=1.25in,left=1.25in]{geometry}
+
+% 参考文献等的引用
+\RequirePackage[sort&compress,numbers,square,super]{natbib}  
+\RequirePackage{gbt7714}
+\RequirePackage{flafter}
+\RequirePackage{ifthen}
+\RequirePackage{xstring}
+\RequirePackage{fancyhdr}    % 设定页眉页脚
+
+
+% redefine pagestyle: plain
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyhead[CO]{\ttfamily \xiaowu \centering \leftmark}
+  \fancyhead[CE]{\ttfamily \xiaowu \centering \rightmark}%
+  \fancyfoot{}
+  \fancyfoot[RO,LE]{\xiaowu \thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}}
+
+  
+\RequirePackage{setspace}
+
+
+\RequirePackage[T1]{fontenc}
+
+\RequirePackage[no-math]{fontspec}
+
+\RequirePackage{ctex}
+
+
+\RequirePackage[style=pdf,useregional=numeric]{datetime2}
+\RequirePackage{hyperref}
+
+
+\if@JLU@debug
+  %\RequirePackage{layouts} % test the page layout setup.      
+  \geometry{showframe,verbose}
+  \hypersetup{%
+    colorlinks=true,citecolor=blue,linkcolor=blue,%
+    urlcolor=blue,anchorcolor=red,debug=true}
+\else 
+  \if@JLU@ebook
+    \hypersetup{%
+      colorlinks=true,citecolor=blue,linkcolor=blue,%
+      urlcolor=blue,anchorcolor=red}
+  \else
+    \hypersetup{pdfborder={0 0 0}}
+  \fi
+\fi
+
+% 设定中文
+\defaultfontfeatures{Mapping=tex-text}  % 要在设定字体之前
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+
+
+\setCJKmainfont{Adobe Song Std}   % 中文缺省字体: 宋体 Adobe Song Std
+\setCJKsansfont{FandolHei}  % 中文无衬线字体：楷体
+\setCJKmonofont{FandolKai}   % 中文数学字体：宋体
+
+% \setmainfont{TeX Gyre Pagella}    % 英文缺省字体：替代 Times New Roman
+% \setsansfont{TeX Gyre Heros}      % 英文无衬线字体: 替代 Arial
+% \setmonofont{Courier Std}         % 等宽字体：Adobe Courier Std
+\setmainfont{Nimbus Roman No9 L}  % 英文缺省字体：替代 Times New Roman
+\setsansfont{Nimbus Sans L}       % 英文无衬线字体: 替代 Arial
+\setmonofont{Nimbus Mono L}       % 等宽字体：Nimbus Mono L
+
+\newcommand{\lishu}{\CJKfontspec{LiSu}}%华文隶书
+
+% 中文标点模式：banjiao, quanjiao, kaiming, CCT, hangmobanjiao, plain
+\punctstyle{quanjiao}
+
+% 假粗体，尽量不要用
+\newcommand{\textBF}[1]{%
+    \special{pdf:literal direct 2 Tr 0.3 w}
+     #1%
+    \special{pdf:literal direct 0 Tr 0 w}
+}
+
+
+
+% 中文字体声明 (cf. ctex.sty), 
+% ??：现在的设定缩进的方法很笨，等以后再想法改进
+% \baselinskip usually is set to 1.2 times of font size by experience
+\newcommand{\chuhao}{
+  \fontsize{42.16}{50.59}\selectfont
+  \setlength{\parindent}{84.32pt plus 1pt minus 0pt}} % 初号字  42bp
+\newcommand{\xiaochu}{
+  \fontsize{36.14}{43.36}\selectfont
+  \setlength{\parindent}{72.28pt plus 1pt minus 0pt}} % 小初号  36bp
+\newcommand{\yihao}{
+  \fontsize{26.10}{31.32}\selectfont
+  \setlength{\parindent}{52.20pt plus 1pt minus 0pt}} % 一号字  26bp
+\newcommand{\xiaoyi}{
+  \fontsize{24.09}{28.91}\selectfont
+  \setlength{\parindent}{48.18pt plus 1pt minus 0pt}} % 小一号  24bp
+\newcommand{\erhao}{
+  \fontsize{22.08}{26.50}\selectfont
+  \setlength{\parindent}{44.16pt plus 1pt minus 0pt}} % 二号字  22bp
+\newcommand{\xiaoer}{
+  \fontsize{18.07}{21.68}\selectfont
+  \setlength{\parindent}{36.14pt plus 1pt minus 0pt}} % 小二号  18bp
+\newcommand{\sanhao}{
+  \fontsize{16.06}{19.27}\selectfont
+  \setlength{\parindent}{32.12pt plus 1pt minus 0pt}} % 三号字  16bp
+\newcommand{\xiaosan}{
+  \fontsize{15.06}{18.07}\selectfont
+  \setlength{\parindent}{30.12pt plus 1pt minus 0pt}} % 小三号  15bp
+\newcommand{\sihao}{
+  \fontsize{14.05}{16.86}\selectfont
+  \setlength{\parindent}{28.10pt plus 1pt minus 0pt}} % 四号字  14bp
+\newcommand{\xiaosi}{
+  \fontsize{12.05}{14.45}\selectfont
+  \setlength{\parindent}{24.10pt plus 1pt minus 0pt}} % 小四号  12bp
+\newcommand{\wuhao}{
+  \fontsize{10.54}{12.65}\selectfont
+  \setlength{\parindent}{21.08pt plus 1pt minus 0pt}} % 五号字10.5bp
+\newcommand{\xiaowu}{
+  \fontsize{9.03}{10.84}\selectfont
+  \setlength{\parindent}{18.06pt plus 1pt minus 0pt}} % 小五号   9bp
+\newcommand{\liuhao}{
+  \fontsize{7.53}{9.03}\selectfont
+  \setlength{\parindent}{15.06pt plus 1pt minus 0pt}} % 六号字 7.5bp
+\newcommand{\xiaoliu}{
+  \fontsize{6.52}{7.83}\selectfont
+  \setlength{\parindent}{13.04pt plus 1pt minus 0pt}} % 小六号 6.5bp
+\newcommand{\qihao}{
+  \fontsize{5.52}{6.62}\selectfont
+  \setlength{\parindent}{11.04pt plus 1pt minus 0pt}} % 七号字 5.5bp
+\newcommand{\bahao}{
+  \fontsize{5.02}{6.02}\selectfont
+  \setlength{\parindent}{10.04pt plus 1pt minus 0pt}} % 八号字   5bp
+
+\newcommand{\JLUrightmark}{吉林大学硕士学位论文}
+
+
+  
+  
+\RequirePackage{amsmath,amssymb,amsfonts}
+\RequirePackage{graphicx}
+\RequirePackage{textcomp}
+\RequirePackage{xcolor}
+
+
+\RequirePackage{url}
+\RequirePackage{booktabs}
+\RequirePackage{xspace}
+
+\RequirePackage{multirow}
+\RequirePackage{subfigure}
+\RequirePackage[inline]{enumitem}
+
+\RequirePackage{indentfirst}
+
+
+\RequirePackage{titlesec}    % 重定义章节标题
+\RequirePackage{titletoc}
+\RequirePackage[nottoc,notlot,notlof]{tocbibind}
+\RequirePackage{afterpage}
+\RequirePackage{relsize}
+
+% 在公式和标号之间加一串点
+\newenvironment{dotsequation}
+    {
+    \begin{equation}
+    \hskip \textwidth minus \textwidth
+    }
+    { 
+    \hskip 0.5em \leaders\hbox{.}\hskip \textwidth minus \textwidth
+    \end{equation}
+    }
+    
+    
+\RequirePackage{tikz}
+
+
+\RequirePackage{hypernat}  % must be loaded after natbib and hyperref
+
+
+\RequirePackage{fancybox}    % produce box-contained texts
+\RequirePackage{calc}
+
+
+
+
+\RequirePackage[format=hang,font=normalsize]{caption}
+
+\captionsetup{textfont=sf,labelfont=sf}
+\captionsetup[table]{font={stretch=1.6}} %% change 1.2 as you like
+\captionsetup[figure]{font={stretch=1.6}}
+
+% 在图号和图题名之间空一个汉字的位置。
+\DeclareCaptionLabelSeparator{twospace}{\hphantom{空}~}
+\captionsetup{labelsep=twospace}
+
+  
+
+
+\renewcommand\contentsname{目\qquad 录}
+\renewcommand\listfigurename{插\quad 图\quad 目\quad 录}
+\renewcommand\listtablename{表\quad 格\quad 目\quad 录}
+\renewcommand\bibname{参考文献}
+\renewcommand\indexname{索\qquad 引}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+\newcommand{\equationname}{公式}
+
+\renewcommand{\appendixname}{附录}
+\newcommand{\CJKprechaptername}{第}
+\newcommand{\CJKpostchaptername}{章}
+\newcommand{\CJKchaptername}{%
+  \CJKprechaptername\;\thechapter\;\CJKpostchaptername}
+
+
+
+% 添加定义 \appendix
+\let\@appendix\appendix
+\renewcommand{\appendix}{\@appendix%
+  \renewcommand{\CJKprechaptername}{\appendixname}
+  \renewcommand{\CJKpostchaptername}{\relax}
+}
+\setcounter{secnumdepth}{5}  % 章节深度
+\setcounter{tocdepth}{3}     % 目录深度
+
+
+
+
+% 重定义章标题，以向目录行写入“第1章”而不是“1”
+% redefine \@chapter[#1]#2
+\def\@chapter[#1]#2{%
+  \ifnum \c@secnumdepth >\m@ne
+    \if@mainmatter
+      \refstepcounter{chapter}%
+      \typeout{\@chapapp\space\thechapter.}%
+      \addcontentsline{toc}{chapter}{%
+        \protect\numberline{%
+          \CJKprechaptername\thechapter\CJKpostchaptername} #1}%
+    \else
+      \addcontentsline{toc}{chapter}{#1}%
+    \fi
+  \else
+    \addcontentsline{toc}{chapter}{#1}%
+  \fi
+  %\chaptermark{#1}%
+  % 直接采用奇页章标题，偶页学校标题
+  \markboth{\CJKchaptername \hspace{1em}#1}{\JLUrightmark}
+  %
+  \addtocontents{lof}{\protect\addvspace{10\p@}}%
+  \addtocontents{lot}{\protect\addvspace{10\p@}}%
+  \if@twocolumn
+    \@topnewpage[\@makechapterhead{#2}]%
+  \else
+    \@makechapterhead{#2}%
+    \@afterheading
+  \fi}
+% end redefine \@chapter
+
+
+
+% redefine \tableofcontents to add PDF bookmark
+\renewcommand\tableofcontents{%
+    \if@twocolumn
+      \@restonecoltrue\onecolumn
+    \else
+      \@restonecolfalse
+    \fi
+    \chapter*{\contentsname}%
+    % 目录奇偶页页眉皆为“目 录”
+    \markboth{\contentsname}{\contentsname}%
+    %
+    \pdfbookmark[0]{\contentsname}{tableofcontents}%
+    \@starttoc{toc}%
+    \if@restonecol\twocolumn\fi}
+% end redefine \tableofcontents
+
+
+
+% \titleformat{<command>}[<shape>]{<format>}{<label>}{<sep>}{<before>}[<after>]
+%   format: 标题格式，label：标题号(如第1章)，
+%   sep：标题号与标题文字之间距离，before: 标题文字之前运行的代码
+% \titlespacing{command}{<leftskip>}{<beforeskip>}{<afterskip>}
+%   leftskip：左缩进；beforeskip：标题前垂直空白；afterskip：标题与正文间垂直空白
+\titleformat{\chapter}{\centering \sffamily \sanhao}{\CJKchaptername}{1em}{}
+\titlespacing{\chapter}{0pt}{8pt}{16pt}
+
+\titleformat{\section}{\heiti\xiaosan}{\thesection}{0.5em}{}
+\titlespacing{\section}{0pt}{13pt}{13pt}
+
+\titleformat{\subsection}{\heiti\sihao}{\thesubsection}{0.5em}{}
+\titlespacing{\subsection}{0pt}{8pt}{7pt}
+
+\titleformat{\subsubsection}{\heiti\xiaosi}{\thesubsubsection}{0.5em}{}
+\titlespacing{\subsubsection}{0pt}{3pt}{2pt}{}
+
+% set up the tableofcontents format
+%
+% \dottedcontents{<section>}[<left>]{<above>}{<label width>}{<leader width>}
+% indent＝<left> - <label width>
+% <lable width> and space bewteen entries (\vspace) need fine tuning.
+\dottedcontents{chapter}[0pt+4.8em]
+  {\vspace{0.3em}\sihao\noindent}{4.0em}{5pt}
+\dottedcontents{section}[18pt+2.0em]
+  {\vspace{0.3em}\sihao\noindent}{2.0em}{5pt}
+\dottedcontents{subsection}[36pt+2.7em]
+  {\vspace{0.3em}\sihao\noindent}{2.7em}{5pt}
+\dottedcontents{subsubsection}[54pt+3.4em]
+  {\vspace{0.3em}\sihao\noindent}{3.4em}{5pt}
+
+
+
+% 重定义方程，图，表的序号为方程2.1、图2.1、表2.1
+\renewcommand{\theequation}{%
+  \ifnum \c@chapter>\z@ \thechapter.\fi \@arabic\c@equation}
+\renewcommand{\thefigure}{%
+  \ifnum \c@chapter>\z@ \thechapter.\fi \@arabic\c@figure}
+\renewcommand{\thetable}{%
+  \ifnum \c@chapter>\z@ \thechapter.\fi \@arabic\c@table}
+
+% modify \autoref to use Chinese name mark to refer to
+\renewcommand{\figureautorefname}{\figurename}
+\renewcommand{\tableautorefname}{\tablename}
+\renewcommand{\equationautorefname}{\equationname}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 吉林大学硕士论文一些格式设定，尽量不要修改，除非学校格式变化了
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\long\def\ctitle#1{\long\def\@ctitle{#1} \let\Title\@ctitle }
+\long\def\@ctitle{}
+\def\cdegree#1{\def\@cdegree{#1}}
+\def\@cdegree{}
+\def\csubject#1{\def\@csubject{#1}}
+\def\@csubject{}
+\def\cinterest#1{\def\@cinterest{#1}}
+\def\@cinterest{}
+\def\ccollege#1{\def\@ccollege{#1}}
+\def\@ccollege{}
+\def\collegenumber#1{\def\@collegenumber{#1}}
+\def\@collegenumber{}
+\def\cuniversity#1{\def\@cuniversity{#1}}
+\def\@cuniversity{}
+\def\cauthor#1{\def\@cauthor{#1} \let\Author\@cauthor}
+\def\@cauthor{}
+\def\csupervisor#1{\def\@csupervisor{#1}}
+\def\@csupervisor{}
+\def\csupervisorpost#1{\def\@csupervisorpost{#1}}
+\def\@csupervisorpost{}
+\def\csupervisordegree#1{\def\@csupervisordegree{#1}}
+\def\@csupervisordegree{}
+\def\cdate#1{\def\@cdate{#1} \let\Date\@cdate}
+\def\@cdate{}
+\long\def\cthesissummary#1{\long\def\@cthesissummary{#1}}
+\long\def\@cthesissummary{}
+\def\ckeywords#1{\def\@ckeywords{#1} \let\Keywords\@ckeywords}
+\def\@ckeywords{}
+\def\classification#1{\def\@classification{#1}}
+\def\@classification{}
+\def\securitylevel#1{\def\@securitylevel{#1}}
+\def\@securitylevel{}
+\long\def\caddress#1{\long\def\@caddress{#1}}
+\long\def\@caddress{}
+\def\telphone#1{\def\@telphone{#1}}
+\def\@telphone{}
+\def\studnumber#1{\def\@studnumber{#1}}
+\def\@studnumber{}
+
+\def\studyperiod#1{\def\@studyperiod{#1}}
+\def\@studyperiod{}
+\def\funded#1{\def\@funded{#1}}
+\def\@funded{}
+\def\fundnumber#1{\def\@fundnumber{#1}}
+\def\@fundnumber{}
+\def\submissiondate#1{\def\@submissiondate{#1}}
+\def\@submissiondate{}
+\def\defensedate#1{\def\@defensedate{#1}}
+\def\@defensedate{}
+ 
+\long\def\etitle#1{\long\def\@etitle{#1}}
+\long\def\@etitle{}
+\def\edegree#1{\def\@edegree{#1}}
+\def\@edegree{}
+\def\esubject#1{\def\@csubject{#1}}
+\def\@esubject{}
+\def\einterest#1{\def\@einterest{#1}}
+\def\@einterest{}
+\def\ecollege#1{\def\@ecollege{#1}}
+\def\@ecollege{}
+\def\euniversity#1{\def\@euniversity{#1}}
+\def\@euniversity{}
+\def\eauthor#1{\def\@eauthor{#1}}
+\def\@eauthor{}
+\def\esupervisor#1{\def\@esupervisor{#1}}
+\def\@esupervisor{}
+\def\edate#1{\def\@edate{#1}}
+\def\@edate{}
+\long\def\ethesissummary#1{\long\def\@ethesissummary{#1}}
+\long\def\@ethesissummary{}
+\def\ekeywords#1{\def\@ekeywords{#1}}
+\def\@ekeywords{}
+
+
+% 参考文件bib文件名
+\def\referencefile#1{\def\@referencefile{#1} }
+\def\@referencefile{}
+
+% 引用风格
+\def\referencestyle#1{\def\@referencestyle{#1} }
+\def\@referencestyle{}
+
+% 书脊题目高度
+\def\spineTitleHeight#1{\def\@spineTitleHeight{#1} }
+\def\@spineTitleHeight{}
+
+% 书脊题目高度
+\def\spineAuthorHeight#1{\def\@spineAuthorHeight{#1} }
+\def\@spineAuthorHeight{}
+
+% 书脊校名高度
+\def\spineUnivHeight#1{\def\@spineUnivHeight{#1} }
+\def\@spineUnivHeight{}
+
+
+% half of OK
+% 摘要(置于目录前)
+% define \thesissummary
+\newcommand{\thesissummary}{
+  \newpage
+  \pagenumbering{Roman}
+  \pagestyle{plain}
+  \pdfbookmark[0]{摘\qquad 要}{thesissummary}
+  \markboth{摘\qquad 要}{摘\qquad 要}%
+  \renewcommand{\baselinestretch}{1.5}\small\normalsize   % 1.5倍行距
+
+  \chapter*{摘\qquad 要}
+  \vspace{1em}
+  \begin{center}
+    \sihao \bfseries \@ctitle
+  \end{center}
+
+  {\xiaosi \@cthesissummary}
+
+  \vspace{2.0em}
+
+  {\heiti\xiaosi\noindent 
+    关键词：\\ \indent \xiaosi \songti \@ckeywords}
+}  % end define \thesissummary
+
+
+\newcommand{\thesissummaryenglish}{
+  \newpage
+  \pagestyle{plain}
+  \pdfbookmark[0]{Abstract}{thesissummaryenglish}
+  \markboth{Abstract}{Abstract}%
+  \renewcommand{\baselinestretch}{1.5}\small\normalsize   % 1.5倍行距
+
+  \chapter*{Abstract}
+  \vspace{1em}
+  \begin{center}
+    \sihao \bfseries \@etitle
+  \end{center}
+  
+  {\xiaosi \@ethesissummary}
+
+  \vspace{2.0em}
+
+  {\heiti\xiaosi\noindent 
+    Keywords: \\ \indent \xiaosi \songti  \@ekeywords}
+}  % end define \thesissummary
+
+
+% 定义前言部分
+\newcommand{\makecover}{%
+	\hypersetup{
+	    colorlinks=false,
+	    linkcolor=black,
+	    filecolor=black,      
+	    urlcolor=black,
+	    bookmarks=true,
+	    bookmarksopen=true,
+	    pdftitle={\Title},    % title
+	    pdfsubject={学位论文},   % subject of the document
+	    pdfauthor={\Author},     % author
+	    pdfcreator={},   % creator of the document
+	    pdfproducer={},  % producer of the document Microsoft® PowerPoint® 2010
+	    pdfkeywords={\Keywords}, % list of keywords
+	    pdfinfo={
+	CreationDate={\Date},%20191219071209
+	ModDate={\Date},
+	},
+	}
+
+
+  \begin{titlepage}
+    % 封面另外单作
+    \JLUcover
+
+    % 扉页
+    \JLUtitlepage
+
+    % 原创声明
+    \originalstatement
+
+    % 授权声明
+    \contributionstatement
+   
+   
+    \pagestyle{plain}
+   
+    % 摘要
+    \thesissummary
+    
+    \thesissummaryenglish
+    
+  \end{titlepage}
+}
+
+
+% 封面上竖向输出书脊
+\newcommand{\printVertically}[5]{
+    \begin{tikzpicture}[remember picture,overlay,shift=(current page.north west)]
+	\StrLen{#3}[\stringLenTmpVar]
+	\def\stepTmpVar{#4}
+	\def\xZeroPointTmpVar{#1}
+	\def\yZeroPointTmpVar{#2}
+    \foreach \x in {1,...,\stringLenTmpVar}
+    {
+    \node (\x) at (\xZeroPointTmpVar, \yZeroPointTmpVar-\stepTmpVar*\x) {#5 \StrMid{#3}{\x}{\x}};
+    }
+    \end{tikzpicture}
+}
+
+
+
+% 以下定义的``命令''全部用{{ ... }}，限定其中的段落、字体等设定的影响范围
+% 以防止``命令''的使用处对其 后 文本的影响
+
+% 画封面上的线
+\newcommand{\MakeCoverBox}[6]{
+  \begin{tikzpicture}[remember picture,overlay,shift=(current page.north west)]
+    \draw [line width=#6, black ] (#1, #2) rectangle (#3, #4);
+    \draw [line width=#6, black ] (#5,#2) -- (#5, #4);
+  \end{tikzpicture}
+}
+
+% 竖向打印论文题目
+\newcommand{\printSpineTitle}[1]{
+  \printVertically{2.5cm}{#1}{ \@ctitle }{0.2in}{}
+}
+
+
+% 竖向打印论文作者
+\newcommand{\printSpineAuthor}[1]{
+  \textbf{
+    \printVertically{2.5cm}{#1}{ \@cauthor }{0.2in}{}
+  }
+}
+
+% 竖向打印校名
+\newcommand{\printSpineUniv}[1]{
+  \printVertically{2.5cm}{#1}{ 吉林大学 }{0.2in}{\kaishu}
+}
+
+
+
+\newcommand{\JLUcover}{{
+  \pdfbookmark[0]{封面}{JLUcover}
+  \thispagestyle{empty}
+
+    %top left x, top left y, bottom right x, bottom right y, middle bar x, line thickness
+  \MakeCoverBox{2.2cm}{-2.5cm}{19.9cm}{-26.8cm}{2.85cm}{0.25mm}
+
+  \printSpineTitle{\@spineTitleHeight}
+  \printSpineAuthor{\@spineAuthorHeight}
+  \printSpineUniv{\@spineUnivHeight}
+
+  {
+  \newlength{\jlutextwidthone}
+  \newlength{\jlutextwidthtwo}
+
+  \xiaosi \bfseries
+  \parbox[t][2.2cm][t]{\textwidth}{
+    \settowidth{\jlutextwidthone}{研究生学号}
+    \settowidth{\jlutextwidthtwo}{单位代码}
+
+    \makebox[\jlutextwidthone][s]{分类号} \makebox[7.8cm][l]{：\@classification}%
+    \makebox[\jlutextwidthtwo][s]{单位代码}   \makebox[2cm][l]{：\@collegenumber}\\
+    \makebox[\jlutextwidthone][s]{研究生学号}  \makebox[7.8cm][l]{：\@studnumber}%    
+    \makebox[\jlutextwidthtwo][s]{密级}       \makebox[2cm][l]{：\@securitylevel}%
+  }
+  }
+  \begin{center}
+   \includegraphics[width=3.2cm]{logo.png}
+  \end{center}
+
+  \begin{center}
+   \lishu 
+   {\fontsize{40}{40}\selectfont 吉\hspace{.5cm}林\hspace{.5cm}大\hspace{.5cm}学}\\
+   \vspace{.7cm}
+   {\fontsize{38}{40}\selectfont 硕士学位论文}\\
+   \vspace{.6cm}
+   {\fontsize{22}{35}\selectfont \textBF{(学术学位)}}\\%\bfseries
+    
+   \vspace{.6cm}
+
+   \mdseries \heiti \sanhao \@ctitle \\
+   \vspace{0.8cm} 
+   \xiaosan \sffamily \mdseries \@etitle
+ 
+  \end{center}
+  \vspace{1.0cm}
+
+  \renewcommand{\baselinestretch}{1.2} \small \normalsize
+  \sanhao \bfseries
+  \settowidth{\jlutextwidthone}{作者姓名}
+  \hspace{2cm}\makebox[\jlutextwidthone][s]{作者姓名}：\@cauthor
+
+  \hspace{2cm}\makebox[\jlutextwidthone][s]{专业}：\@csubject
+  
+  \hspace{2cm}\makebox[\jlutextwidthone][s]{研究方向}：\@cinterest
+
+  \hspace{2cm}\makebox[\jlutextwidthone][s]{指导教师}：\@csupervisor\hphantom{空}\@csupervisorpost
+
+  \hspace{2cm}\makebox[\jlutextwidthone][s]{培养单位}：\@ccollege
+  \vfill                % 填充此间空白
+  
+  
+  \renewcommand{\baselinestretch}{1.0} \small \normalsize
+  \sanhao \bfseries
+   \begin{center}
+  \qquad \qquad 年 \qquad 月
+   \end{center}
+
+}}  % end define \JLUcover
+
+% 扉页
+% define \JLUtitlepage
+\newcommand{\JLUtitlepage}{%
+  \newpage
+  \thispagestyle{empty}
+  \pdfbookmark[0]{扉页}{JLUtitlepage}  
+  \renewcommand{\baselinestretch}{2.0}\small\normalsize    % 2倍行距
+  
+
+  \parbox[t][2.5cm][t]{\textwidth}{\begin{center}\end{center}}  
+  
+  \begin{center}
+    \sanhao\setlength{\parindent}{0pt}
+    
+    %\rule{5cm}{0.4pt}
+    
+    \@ctitle
+    
+    %\rule{5cm}{0.4pt}
+    
+    \sffamily \@etitle 
+    
+    %\rule{\textwidth}{0.4pt}
+  \end{center}
+  \vspace{5.0cm}
+
+  {\sihao\setlength{\parindent}{5em}
+    作者姓名：\@cauthor
+    
+    专业名称：\@csubject
+    
+    指导教师：\@csupervisor\hphantom{空}\@csupervisorpost
+    
+    学位类别：\@cdegree
+    
+    答辩日期：\qquad\qquad 年\qquad 月\qquad 日
+  }  
+} % end define \JLUtitlepage
+
+
+
+% OK
+% 吉林大学硕士学位论文原创性声明
+% define \originalstatement
+\newcommand{\originalstatement}{%
+  \newpage
+  \thispagestyle{empty}
+  \pdfbookmark[0]{吉林大学硕士学位论文原创性声明}{originalstatement}  
+  \renewcommand{\baselinestretch}{2.0}\small\normalsize    % 2倍行距
+
+  \parbox[t][1cm][t]{\linewidth}{\begin{center}\end{center}}
+
+  \begin{center}
+    \sanhao
+    \noindent 吉林大学硕士学位论文原创性声明
+  \end{center}
+  
+  {\sihao 本人郑重声明：所呈交学位论文，是本人在指导教师的指导下，
+    独立进行研究工作所取得的成果。除文中已经注明引用的内容外，本论文
+    不包含任何其他个人或集体已经发表或撰写过的作品成果。对本文的研究
+    做出重要贡献的个人和集体，均已在文中以明确方式标明。本人完全意识
+    到本声明的法律结果由本人承担。\\*[0.5cm]
+
+    \hspace{5cm}学位论文作者签名：
+
+    \hspace{5cm}日期：\qquad\quad 年\qquad 月\qquad 日
+  }
+} % end define \originalstatement
+
+
+
+% OK
+% 《中国优秀博硕士学位论文全文数据库》投稿声明
+% define \contributionstatement
+\newcommand{\contributionstatement}{
+  \newpage
+  \thispagestyle{empty}
+  \pdfbookmark[0]{关于学位论文使用授权的声明}{contributionstatement}
+  \renewcommand{\baselinestretch}{2.0}\small\normalsize    % 2倍行距
+
+  % 先来一段高度为 1cm 的空白
+  \parbox[t][1cm][t]{\linewidth}{\begin{center}\end{center}}
+  
+  \begin{center}
+    \sanhao
+    \noindent 关于学位论文使用授权的声明
+  \end{center}
+  
+  {\sihao
+    本人完全了解吉林大学有关保留、使用学位论文的规定,同意吉
+林大学保留或向国家有关部门或机构送交论文的复印件和电子版,允
+许论文被查阅和借阅;本人授权吉林大学可以将本学位论文的全部或
+部分内容编入有关数据库进行检索,可以采用影印、缩印或其他复制
+手段保存论文和汇编本学位论文。
+
+（保密论文在解密后应遵守此规定）
+
+    \indent 论文级别：{$\blacksquare$}硕士\quad {$\Box$}博士
+    
+    \indent 学科专业：\@csubject
+
+    \indent 论文题目：\@ctitle 
+    
+    \indent 作者签名：\qquad\qquad\qquad\qquad\qquad\quad 指导教师签名：\\
+    
+    \hspace*{8cm} 年\qquad 月\qquad 日
+
+    \indent 作者联系地址（邮编）：\@caddress \\
+
+    \indent 作者联系电话：\mbox{\@telphone}
+  }
+} % end \contributionstatement
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 生存参考文献
+\newcommand{\makerefrence}{%
+
+	%最后设置格式，插入参考文献。
+	\xiaosi
+	\bibliographystyle{\@referencestyle}
+	\clearpage
+	\phantomsection
+	%\addcontentsline{toc}{chapter}{参考文献}
+	\bibliography{\@referencefile}
+}
+
+
+
+\newenvironment{acknowledgement}
+    {
+    \chapter*{致 \qquad 谢}
+    \addcontentsline{toc}{chapter}{致\qquad 谢}
+    \markboth{致 \qquad 谢}{致 \qquad 谢}%
+    }
+    {}
+
+
+\newenvironment{selfintroduction}
+    {
+  \chapter*{作者简介及在学期间所取得的科研成果}
+  \addcontentsline{toc}{chapter}{作者简介及在学期间所取得的科研成果}
+  \markboth{作者简介及在学期间所取得的科研成果}{作者简介及在学期间所取得的科研成果}%
+
+    }
+    {}
+
+
+
+
+
+
+
+
+
+% default setup for the document
+% use the redefined `plain' pagestyle
+\pagestyle{plain}
+% we forbid \sectionmark to change the \rightmark
+%\renewcommand{\sectionmark}{}
+
+\endinput
+%%
+%% end of file `jluthesisUTF8.sty'
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% End:
