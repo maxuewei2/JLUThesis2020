@@ -14,12 +14,20 @@ jluthesis 原档存储于 google code，但已无法下载。<br/>
 
 ## 使用
 
-建议安装 TeX Live 并使用 XeLaTeX 编译。
-校内可在[吉大 CTAN 镜像站](http://mirrors.jlu.edu.cn/)下载 TeX Live。
+- 建议安装 TeX Live 并使用 XeLaTeX 编译。<br/>
+  校内可在[吉大 CTAN 镜像站](http://mirrors.jlu.edu.cn/)下载 TeX Live。
 
-若缺少字体需自行下载安装。
+- 若缺少字体需自行下载安装。所需字体如下：
+	- Adobe Song Std
+	- Adobe Heiti Std
+	- Adobe Kaiti Std
+	- Nimbus Roman No9 L
+	- Nimbus Sans L
+	- Nimbus Mono L
 
-若要使用此模板生成的 PDF 文档查重，需确保 PDF 能够正常复制汉字。
+- 若要使用此模板生成的 PDF 文档查重，需确保 PDF 能够正常复制出汉字。
+
+- 要生成 MS Word 文档，可使用 pandoc 或 Adobe Acrobat DC，也可直接用 MS Word 打开 PDF 得到 Word 文档。
 
 ## 免责声明
 
@@ -27,8 +35,9 @@ jluthesis 原档存储于 google code，但已无法下载。<br/>
 
 ## 同类解决方案
 
-[jiafeng5513/JLU_Dissertation](https://github.com/jiafeng5513/JLU_Dissertation)
+- [jiafeng5513/JLU_Dissertation](https://github.com/jiafeng5513/JLU_Dissertation)
 
 ## 联系方法
 
 maxuewei1995 at 126点com
+
