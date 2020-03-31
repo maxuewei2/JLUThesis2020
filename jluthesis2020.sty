@@ -114,6 +114,20 @@
 
 \newcommand{\lishu}{\CJKfontspec{LiSu}}%华文隶书
 
+% we also define \song \kai for our habit
+\setCJKfamilyfont{song}{Adobe Song Std} 
+\newcommand*{\song}{\CJKfamily{song}}
+\setCJKfamilyfont{kaiti}{Adobe Kaiti Std} 
+\newcommand*{\kai}{\CJKfamily{kaiti}}
+% define \li (隶书) \hei (黑体) \fs (仿宋)
+\setCJKfamilyfont{lishu}{LiSu}
+\newcommand*{\li}{\CJKfamily{lishu}}
+\setCJKfamilyfont{heiti}{Adobe Heiti Std} 
+\newcommand*{\hei}{\CJKfamily{heiti}}
+\setCJKfamilyfont{fs}{Adobe Fangsong Std} 
+\newcommand*{\fs}{\CJKfamily{fs}}
+
+
 % 中文标点模式：banjiao, quanjiao, kaiming, CCT, hangmobanjiao, plain
 \punctstyle{quanjiao}
 
@@ -330,13 +344,13 @@
 \titleformat{\chapter}{\centering \sffamily \sanhao}{\CJKchaptername}{1em}{}
 \titlespacing{\chapter}{0pt}{8pt}{16pt}
 
-\titleformat{\section}{\heiti\xiaosan}{\thesection}{0.5em}{}
+\titleformat{\section}{\hei\xiaosan}{\thesection}{0.5em}{}
 \titlespacing{\section}{0pt}{13pt}{13pt}
 
-\titleformat{\subsection}{\heiti\sihao}{\thesubsection}{0.5em}{}
+\titleformat{\subsection}{\hei\sihao}{\thesubsection}{0.5em}{}
 \titlespacing{\subsection}{0pt}{8pt}{7pt}
 
-\titleformat{\subsubsection}{\heiti\xiaosi}{\thesubsubsection}{0.5em}{}
+\titleformat{\subsubsection}{\hei\xiaosi}{\thesubsubsection}{0.5em}{}
 \titlespacing{\subsubsection}{0pt}{3pt}{2pt}{}
 
 % set up the tableofcontents format
@@ -488,8 +502,8 @@
 
   \vspace{2.0em}
 
-  {\heiti\xiaosi\noindent 
-    关键词：\\ \indent \xiaosi \songti \@ckeywords}
+  {\hei\xiaosi\noindent 
+    关键词：\\ \indent \xiaosi \song \@ckeywords}
 }  % end define \thesissummary
 
 
@@ -510,8 +524,8 @@
 
   \vspace{2.0em}
 
-  {\heiti\xiaosi\noindent 
-    Keywords: \\ \indent \xiaosi \songti  \@ekeywords}
+  {\hei\xiaosi\noindent 
+    Keywords: \\ \indent \xiaosi \song  \@ekeywords}
 }  % end define \thesissummary
 
 
@@ -604,7 +618,7 @@
 
 % 竖向打印校名
 \newcommand{\printSpineUniv}[1]{
-  \printVertically{2.5cm}{#1}{ 吉林大学 }{0.2in}{\kaishu}
+  \printVertically{2.5cm}{#1}{ 吉林大学 }{0.2in}{\kai}
 }
 
 
@@ -649,7 +663,7 @@
     
    \vspace{.6cm}
 
-   \mdseries \heiti \sanhao \@ctitle \\
+   \mdseries \hei \sanhao \@ctitle \\
    \vspace{0.8cm} 
    \xiaosan \sffamily \mdseries \@etitle
  
