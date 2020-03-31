@@ -33,6 +33,15 @@
 \DeclareOption{ebook}{\@JLU@ebooktrue\@JLU@debugfalse\@JLU@hardcopyfalse}
 \DeclareOption{hardcopy}{\@JLU@hardcopytrue\@JLU@debugfalse\@JLU@ebookfalse}
 
+\newif\if@JLU@makebox
+\newif\if@JLU@twosidecover
+\newif\if@JLU@onesidecover
+\DeclareOption{makebox}{\@JLU@makeboxtrue}
+\DeclareOption{nobox}{\@JLU@makeboxfalse}
+\DeclareOption{onesidecover}{\@JLU@onesidecovertrue\@JLU@twosidecoverfalse}
+\DeclareOption{twosidecover}{\@JLU@onesidecoverfalse\@JLU@twosidecovertrue\@JLU@makeboxfalse}
+
+
 % 其它的选项有用的无用的都交给 geometry 宏包处理，为了省事
 \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{geometry}}
 
@@ -40,7 +49,7 @@
 
 
 
-\ExecuteOptions{hardcopy}  % 默认输出打印版
+\ExecuteOptions{hardcopy,onesidecover,makebox}  % 默认输出打印版
 \ProcessOptions
 
 \RequirePackage[a4paper,top=1.02in,bottom=1.3in,right=1.25in,left=1.25in]{geometry}
@@ -529,6 +538,61 @@
 }  % end define \thesissummary
 
 
+\RequirePackage{afterpage}
+\RequirePackage{typearea}
+\RequirePackage{atbegshi}% http://ctan.org/pkg/atbegshi
+
+\newcommand{\makeTwoSidesCover}{%
+	\afterpage{
+	    \KOMAoptions{paper=460mm:297mm,paper=landscape,pagesize}
+	    \areaset{\paperwidth}{\paperheight}
+		\newlength{\colpad}
+		\newcommand{\colwidth}{0.99\ccwd}
+		\newcommand{\miniwidth}{210mm}
+		\newcommand{\logowidth}{64mm}
+		\newcommand{\vertmargin}{\fill}
+		% 减号前的值为论文厚度。
+		% 80克的A4纸的厚度是0.104mm
+		\setlength{\colpad}{(10mm - \colwidth) / 2}
+		
+        \,			
+		
+		\pagebreak
+		
+		
+
+		\centering{
+		\begin{minipage}[b][\textheight][b]{\miniwidth}
+			\vspace*{\fill}\par
+			\centerline{\includegraphics[width = \logowidth]{logo.png}}\par
+			\vspace*{\fill}\par
+		\end{minipage}
+		\hspace{\colpad}
+		\begin{minipage}[b][\textheight][b]{\colwidth}
+			\linespread{1}\selectfont
+			\vspace*{\vertmargin}\par
+			% 标题、姓名、校名
+			\mdseries  \@ctitle \par\vfill
+			%\rotatebox{-90}{作者姓名}\par\vfill\rotatebox{-90}{吉林大学}\par %文字朝左
+			\bfseries \@cauthor \par\vfill \kai \mdseries 吉林大学\par	%文字朝下
+			\vspace*{\vertmargin}\par
+		\end{minipage}
+		\hspace{\colpad}
+		\begin{minipage}[b][\textheight][b]{\miniwidth}
+            \vspace*{\fill}\par
+            \centering
+			\begin{minipage}[b][\textheight - 2.32in][b]{\miniwidth - 2.5in}
+			\JLUcover
+			\end{minipage}
+		    \vspace*{\fill}\par
+		\end{minipage}
+		}
+		\clearpage
+	    \KOMAoptions{paper=A4,pagesize}
+	    \recalctypearea
+	}
+}
+
 % 定义前言部分
 \newcommand{\makecover}{%
 	\hypersetup{
@@ -550,11 +614,17 @@
 	},
 	}
 
+    \if@JLU@twosidecover
+     \makeTwoSidesCover
+    \else
+     \JLUcover
+    \fi
+    \pagebreak
+
+  
 
   \begin{titlepage}
-    % 封面另外单作
-    \JLUcover
-
+  
     % 扉页
     \JLUtitlepage
 
@@ -621,19 +691,22 @@
   \printVertically{2.5cm}{#1}{ 吉林大学 }{0.2in}{\kai}
 }
 
-
-
+  
 \newcommand{\JLUcover}{{
   \pdfbookmark[0]{封面}{JLUcover}
   \thispagestyle{empty}
 
-    %top left x, top left y, bottom right x, bottom right y, middle bar x, line thickness
-  \MakeCoverBox{2.2cm}{-2.5cm}{19.9cm}{-26.8cm}{2.85cm}{0.25mm}
-
-  \printSpineTitle{\@spineTitleHeight}
-  \printSpineAuthor{\@spineAuthorHeight}
-  \printSpineUniv{\@spineUnivHeight}
-
+    
+	\if@JLU@makebox
+	    %top left x, top left y, bottom right x, bottom right y, middle bar x, line thickness
+	    \MakeCoverBox{2.2cm}{-2.5cm}{19.9cm}{-26.8cm}{2.85cm}{0.25mm}
+	
+	    \printSpineTitle{\@spineTitleHeight}
+	    \printSpineAuthor{\@spineAuthorHeight}
+	    \printSpineUniv{\@spineUnivHeight}
+	\fi  
+  
+  
   {
   \newlength{\jlutextwidthone}
   \newlength{\jlutextwidthtwo}
@@ -846,7 +919,6 @@
   \chapter*{作者简介及在学期间所取得的科研成果}
   \addcontentsline{toc}{chapter}{作者简介及在学期间所取得的科研成果}
   \markboth{作者简介及在学期间所取得的科研成果}{作者简介及在学期间所取得的科研成果}%
-
     }
     {}
 
@@ -863,6 +935,17 @@
 \pagestyle{plain}
 % we forbid \sectionmark to change the \rightmark
 %\renewcommand{\sectionmark}{}
+
+
+
+
+% 输出双面封皮时需删掉第一页
+\makeatletter
+\@ifpackagewith{jluthesis2020}{twosidecover}{\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}}{}
+\makeatother
+
+
+
 
 \endinput
 %%

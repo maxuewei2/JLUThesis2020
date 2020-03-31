@@ -1,6 +1,10 @@
 \documentclass[openany,a4paper,12pt,oneside,AutoFakeBold]{book}%
 
-\usepackage{jluthesis2020}
+% 可用选项有 debug ebook hardcopy makebox nobox onesidecover twosidecover 
+%\usepackage[ebook,onesidecover,nobox]{jluthesis2020}%
+%\usepackage[twosidecover,makebox]{jluthesis2020}%
+\usepackage[onesidecover,makebox]{jluthesis2020}%
+
 
 \usepackage{algorithm}
 \makeatletter
@@ -20,9 +24,12 @@
 
 \graphicspath{{figures/}}
 
+
+
 \begin{document}
 \frontmatter
 \sloppy % 解决中英文混排的断行问题，会加入间距，但不会影响断行 ????
+
 
 
 % 手动在长标题中利用 \par 输入断行，
@@ -182,7 +189,7 @@ x&=4y+\log (y)\\
 
 \section{研究内容与论文结构}
 
-研究内容与论文结构\cite{Harrison1993,xiuwu2002,Erickson2003,Auroux2002}。
+研究内容\cite{erdHos1960evolution,konect:socialcomputing,konect}与论文结构\cite{Harrison1993,xiuwu2002,Erickson2003,Auroux2002}。
 
 \chapter{算法}
 尝试插入算法（见\autoref{alg:alg1}）
