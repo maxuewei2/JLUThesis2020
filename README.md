@@ -25,6 +25,10 @@ jluthesis 原档存储于 google code，但已无法下载。<br/>
 
 此模板为个人实现，使用者应当自行承担一切后果。
 
+## 同类解决方案
+
+[jiafeng5513/JLU_Dissertation](https://github.com/jiafeng5513/JLU_Dissertation)
+
 ## 联系方法
 
 maxuewei1995 at 126点com
