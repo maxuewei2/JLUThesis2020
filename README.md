@@ -2,15 +2,16 @@
 
 吉林大学硕士学位论文 LaTeX 模板。
 
-此模板写于 2020 年 3 月 31 日，主要参考 jluthesis 及我在写毕业论文时自己用 LaTeX 实现的 2020 年吉林大学研究生学位论文撰写及装帧规范。<br/>
-因个人 TeX 能力有限且我自己的实现看起来很乱，所以参考 jluthesis 进行模板化修改产生此模板。<br/>
-感谢实现 jluthesis 并开源的前辈 Zhang Yinhe。<br/>
-jluthesis 原档存储于 google code，但已无法下载。<br/>
-本文参考的 jluthesis 下载自 [dartall](https://github.com/dartall/jluthesis) <br/>
+- 此模板写于 2020 年 3 月 31 日，主要参考 jluthesis 及自己在写毕业论文时用 LaTeX 实现的 2020 年吉林大学研究生学位论文撰写及装帧规范。<br/>
+- 因个人 TeX 能力有限且我自己的实现看起来很乱，所以参考 jluthesis 进行模板化修改产生此模板。<br/>
+- 感谢实现 jluthesis 并开源的前辈 Zhang Yinhe。<br/>
+ jluthesis 原档存储于 google code，但已无法下载。<br/>
+本文参考的 jluthesis 下载自 [dartall](https://github.com/dartall/jluthesis) 。<br/>
+- 生成双面封皮的部分参考 [pkuthss](https://gitea.com/CasperVector/pkuthss/src/branch/master/doc/example/spine.tex) 和 [jiafeng5513/JLU_Dissertation](https://github.com/jiafeng5513/JLU_Dissertation)。
 
 ## 示例
 
-示例文档见 [example-onesidecover.pdf](https://github.com/maxuewei2/JLUMasterThesisLaTeX/blob/master/example-onesidecover.pdf) 和 [example-twosidecover.pdf](https://github.com/maxuewei2/JLUMasterThesisLaTeX/blob/master/example-twosidecover.pdf)
+示例文档见 [example-onesidecover.pdf](https://github.com/maxuewei2/JLUMasterThesisLaTeX/blob/master/example-onesidecover.pdf) 和 [example-twosidecover.pdf](https://github.com/maxuewei2/JLUMasterThesisLaTeX/blob/master/example-twosidecover.pdf)。
 
 ## 使用
 
@@ -37,7 +38,7 @@ jluthesis 原档存储于 google code，但已无法下载。<br/>
 
 - [jiafeng5513/JLU_Dissertation](https://github.com/jiafeng5513/JLU_Dissertation)
 
-## 联系方法
+## 联系方式
 
 maxuewei1995 at 126 dot com
 
