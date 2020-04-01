@@ -18,7 +18,7 @@
 |makebox| 输出的封面带框线和书脊|
 |nobox| 输出的封面无框线和书脊|
 |onesidecover| 输出的封面为单页|
-|twosidecover |输出的封面为双页|
+|twosidescover |输出的封面为双页|
 |amd| 学术学位使用|
 |pmd |专业学位使用|
 
@@ -43,7 +43,7 @@
 	- Nimbus Sans L
 	- Nimbus Mono L
 
- 下载字体并放入系统文件夹后，运行 `fc-cache` 刷新字体缓存。<br/>
+ 下载字体并放入系统字体文件夹后，运行 `fc-cache` 刷新字体缓存。<br/>
   Linux 用户可通过 ` fc-list : family | sort ` 查看已安装字体。 
 
 - 若要使用此模板生成的 PDF 文档查重，需确保 PDF 能够正常复制出汉字。

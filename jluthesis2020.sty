@@ -109,7 +109,8 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 
 \RequirePackage[no-math]{fontspec}
 
-\RequirePackage{ctex}
+%\RequirePackage{ctex}
+\RequirePackage{xeCJK}
 
 
 \RequirePackage[style=pdf,useregional=numeric]{datetime2}
@@ -423,7 +424,10 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 吉林大学硕士论文一些格式设定，尽量不要修改，除非学校格式变化了
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\long\def\ctitle#1{\long\def\@ctitle{#1}}
+\long\def\cspinetitle#1{\long\def\@cspinetitle{#1}}
+\long\def\@cspinetitle{}
+
+\long\def\ctitle#1{\long\def\@ctitle{#1} \long\def\@cspinetitle{#1}}
 \long\def\@ctitle{}
 
 \long\def\etitle#1{\long\def\@etitle{#1}}
@@ -621,12 +625,94 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 \geometry{a4paper,top=1.02in,bottom=1.3in,right=1.25in,left=1.25in}
 
 
+
+%\newfontfamily\testfont{Nimbus Sans L}
+%\newcommand{\ifchineseelse}[3]{
+%    \setbox0=\hbox{\testfont #1}
+%    \ifdim\ht0=0pt #3 \else #2 \fi
+%}
+
+
+% 封面上竖向输出书脊
+\newcommand{\printVerticallySentence}[3]{
+    \begin{tikzpicture}[remember picture,overlay,shift=(current page.north west)]
+	\def\xZeroPointTmpVar{#1}
+	\def\yZeroPointTmpVar{#2}
+    \node (x) at (\xZeroPointTmpVar, \yZeroPointTmpVar) {#3};
+    \end{tikzpicture}
+}
+
+% 封面上竖向输出书脊
+\newcommand{\printVertically}[5]{
+    \begin{tikzpicture}[remember picture,overlay,shift=(current page.north west)]
+	\StrLen{#3}[\stringLenTmpVar]
+	\def\stepTmpVar{#4}
+	\def\xZeroPointTmpVar{#1}
+	\def\yZeroPointTmpVar{#2}
+    \foreach \x in {1,...,\stringLenTmpVar}
+    {
+    \node (\x) at (\xZeroPointTmpVar, \yZeroPointTmpVar-\stepTmpVar*\x) {#5 \StrMid{#3}{\x}{\x}};
+    }
+    \end{tikzpicture}
+}
+
+%\printVertically{2.5cm}{-1em}{吉林大学硕士学位论文}{0.2in}{}
+%\printVerticallySentence{2.5cm}{-15.5em}{\rotatebox{-90}{RiWalk}}
+%\printVertically{2.5cm}{-16.5em}{排版示例}{0.2in}{}
+
+%% 竖向打印论文题目
+%\newcommand{\printSpineTitle}[1]{
+%  \printVertically{2.5cm}{#1}{ \@ctitle }{0.2in}{}
+%}
+%
+%
+%% 竖向打印论文作者
+%\newcommand{\printSpineAuthor}[1]{
+%  \textbf{
+%    \printVertically{2.5cm}{#1}{ \@cauthor }{0.2in}{}
+%  }
+%}
+%
+%% 竖向打印校名
+%\newcommand{\printSpineUniv}[1]{
+%  \printVertically{2.5cm}{#1}{ 吉林大学 }{0.2in}{\kai}
+%}
+
+%% 中文直接输出，英文旋转-90度
+%\newcommand{\printSpineCharacter}[1]{
+%    \ifchineseelse{#1}{
+%          #1
+%    }{
+%          \rotatebox{-90}{#1}
+%    }
+%}
+%
+%
+%\newcommand{\printSpine}[1]{
+%    \StrLen{#1}[\stringLenTmpVar]
+%    \foreach \x in {1,...,\stringLenTmpVar}{
+%        \printSpineCharacter{ \StrMid{#1}{\x}{\x} }
+%    }
+%}
+
+
+\newcommand{\makeSpine}{
+    \linespread{1}\selectfont
+	%\vspace*{4cm}\par 
+	\vspace*{\fill}\par
+	% 标题、姓名、校名
+	\mdseries  {\@ctitle} \par\vfill
+	\bfseries \@cauthor \par\vfill \kai \mdseries \@cuniversity \par 
+	%\vspace*{3cm} 
+	\vspace*{\fill}\par 
+}
+
 \newcommand{\makeTwoSidesCover}{%
 	\afterpage{
 	    \KOMAoptions{paper=460mm:297mm,paper=landscape,pagesize}
 	    \areaset{\paperwidth}{\paperheight}
 		\newlength{\colpad}
-		\newcommand{\colwidth}{0.99\ccwd}
+		\newcommand{\colwidth}{1em}
 		\newcommand{\miniwidth}{210mm}
 		\newcommand{\logowidth}{64mm}
 		\newcommand{\vertmargin}{\fill}
@@ -648,13 +734,7 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 		\end{minipage}
 		\hspace{\colpad}
 		\begin{minipage}[b][\textheight][b]{\colwidth}
-			\linespread{1}\selectfont
-			\vspace*{\vertmargin}\par
-			% 标题、姓名、校名
-			\mdseries  \@ctitle \par\vfill
-			%\rotatebox{-90}{作者姓名}\par\vfill\rotatebox{-90}{吉林大学}\par %文字朝左
-			\bfseries \@cauthor \par\vfill \kai \mdseries 吉林大学\par	%文字朝下
-			\vspace*{\vertmargin}\par
+             \makeSpine
 		\end{minipage}
 		\hspace{\colpad}
 		\begin{minipage}[b][\textheight][b]{\miniwidth}
@@ -663,7 +743,7 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 			\begin{minipage}[b][\textheight - 2.32in][b]{\miniwidth - 2.5in}
 			\JLUcover
 			\end{minipage}
-		    \vspace*{\fill}\par
+		    \vspace*{\fill}\par 
 		\end{minipage}
 		}
 		\clearpage
@@ -725,21 +805,6 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 }
 
 
-%% 封面上竖向输出书脊
-%\newcommand{\printVertically}[5]{
-%    \begin{tikzpicture}[remember picture,overlay,shift=(current page.north west)]
-%	\StrLen{#3}[\stringLenTmpVar]
-%	\def\stepTmpVar{#4}
-%	\def\xZeroPointTmpVar{#1}
-%	\def\yZeroPointTmpVar{#2}
-%    \foreach \x in {1,...,\stringLenTmpVar}
-%    {
-%    \node (\x) at (\xZeroPointTmpVar, \yZeroPointTmpVar-\stepTmpVar*\x) {#5 \StrMid{#3}{\x}{\x}};
-%    }
-%    \end{tikzpicture}
-%}
-
-
 
 % 以下定义的``命令''全部用{{ ... }}，限定其中的段落、字体等设定的影响范围
 % 以防止``命令''的使用处对其 后 文本的影响
@@ -752,27 +817,12 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
   \end{tikzpicture}
 }
 
-%% 竖向打印论文题目
-%\newcommand{\printSpineTitle}[1]{
-%  \printVertically{2.5cm}{#1}{ \@ctitle }{0.2in}{}
-%}
-%
-%
-%% 竖向打印论文作者
-%\newcommand{\printSpineAuthor}[1]{
-%  \textbf{
-%    \printVertically{2.5cm}{#1}{ \@cauthor }{0.2in}{}
-%  }
-%}
-%
-%% 竖向打印校名
-%\newcommand{\printSpineUniv}[1]{
-%  \printVertically{2.5cm}{#1}{ 吉林大学 }{0.2in}{\kai}
-%}
+
 
 \RequirePackage[absolute,overlay]{textpos}
 \setlength{\TPHorizModule}{1cm}
 \setlength{\TPVertModule}{1cm}
+
 \newcommand{\JLUcover}{{
   \pdfbookmark[0]{封面}{JLUcover}
   \thispagestyle{empty}
@@ -785,16 +835,9 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 	    %\printSpineTitle{\@spineTitleHeight}
 	    %\printSpineAuthor{\@spineAuthorHeight}
 	    %\printSpineUniv{\@spineUnivHeight}
-		\begin{textblock}{1}[0,0](1.45,2.5)
+		\begin{textblock}{1}[0,0](1.65,2.5)
         	\begin{minipage}[t][24.3cm][c]{0.5em} %\textheight
-				\linespread{1}\selectfont
-				%\vspace*{4cm}\par 
-				\vspace*{\fill}\par
-				% 标题、姓名、校名
-				\mdseries  \@ctitle \par\vfill
-				\bfseries \@cauthor \par\vfill \kai \mdseries 吉林大学\par 
-				%\vspace*{3cm} 
-				\vspace*{\fill}\par
+				\makeSpine
 			\end{minipage}
 		\end{textblock}
 	\fi  
@@ -1048,6 +1091,8 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 \makeatother
 \newcommand{\algorithmautorefname}{算法}
 
+
+  \renewcommand{\baselinestretch}{1.6}\small\normalsize    
 
 \endinput
 %%

@@ -12,8 +12,8 @@
 % pmd 专业学位使用
 % 默认为 hardcopy,onesidecover,makebox,amd
 % 举例如下
-\usepackage[ebook,twosidescover,amd]{jluthesis2020}%
-%\usepackage[onesidecover,makebox,pmd]{jluthesis2020}%
+%\usepackage[ebook,twosidescover,amd]{jluthesis2020}%
+\usepackage[onesidecover,makebox,pmd]{jluthesis2020}%
 
 
 \usepackage{algcompatible}
@@ -87,32 +87,24 @@ Conventionally, a modern computer consists of at least one processing element, t
 \ekeywords{a, b, c}
 
 
-%% 调整下面三个值控制封面书脊三部分的高度，均需为负值
-%\spineTitleHeight{-4cm}
-%\spineAuthorHeight{-17cm}
-%\spineUnivHeight{-22cm}
-
 \makecover
 
+
+
 \pagenumbering{Roman} 
-\setstretch{1.3}
 \tableofcontents
-\setstretch{1.6}
 \pagebreak
 
 
-
-
-\pdfbookmark{插图和表格列表}{loft}
-\label{loft}
+\pdfbookmark{插图目录}{lof}
+\label{lof}
 \listoffigures
 
-\begingroup
-\let\clearpage\relax
-\vspace{1cm}
+\pagebreak
+
+\pdfbookmark{表格目录}{lot}
+\label{lot}
 \listoftables
-\endgroup
-\markboth{插图和表格列表}{插图和表格列表}
 
 \clearpage
 \pagenumbering{arabic}
@@ -241,7 +233,7 @@ x&=4y+\log (y)\\
         \STATE 初始化 $s$ 为 $0$ \label{algline:init}
         \FOR{$i = 1,2,...,k$}    \COMMENT{\textbf{循环}}
         \label{algline:for} 
-        \IF {$i\% 5\neq 0$}
+        \IF {$i\;\% \;5\neq 0$}
         \STATE $s=s+n+i$
         \ENDIF 
         \ENDFOR \label{algline:endfor}
