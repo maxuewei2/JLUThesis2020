@@ -34,25 +34,53 @@
 \DeclareOption{hardcopy}{\@JLU@hardcopytrue\@JLU@debugfalse\@JLU@ebookfalse}
 
 \newif\if@JLU@makebox
-\newif\if@JLU@twosidecover
 \newif\if@JLU@onesidecover
+\newif\if@JLU@twosidescover
 \DeclareOption{makebox}{\@JLU@makeboxtrue}
 \DeclareOption{nobox}{\@JLU@makeboxfalse}
-\DeclareOption{onesidecover}{\@JLU@onesidecovertrue\@JLU@twosidecoverfalse}
-\DeclareOption{twosidecover}{\@JLU@onesidecoverfalse\@JLU@twosidecovertrue\@JLU@makeboxfalse}
+\DeclareOption{onesidecover}{\@JLU@onesidecovertrue\@JLU@twosidescoverfalse}
+\DeclareOption{twosidescover}{\@JLU@onesidecoverfalse\@JLU@twosidescovertrue\@JLU@makeboxfalse}
 
 
-% 其它的选项有用的无用的都交给 geometry 宏包处理，为了省事
-\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{geometry}}
+\newif\if@JLU@amd
+\newif\if@JLU@pmd
+\newif\if@JLU@phd
+\DeclareOption{amd}{\@JLU@amdtrue\@JLU@pmdfalse\@JLU@phdfalse}
+\DeclareOption{pmd}{\@JLU@amdfalse\@JLU@pmdtrue\@JLU@phdfalse}
+\DeclareOption{phd}{\@JLU@amdfalse\@JLU@pmdfalse\@JLU@phdtrue}
+
+
+\DeclareOption*{\PackageError{jluthesis2020}{Unknown option ‘\CurrentOption’}{
+Options allowed: 
+debug ebook hardcopy makebox nobox onesidecover twosidescover
+}}
+
+ %其它的选项有用的无用的都交给 geometry 宏包处理，为了省事
+%\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{geometry}}
 
 
 
 
 
-\ExecuteOptions{hardcopy,onesidecover,makebox}  % 默认输出打印版
+\ExecuteOptions{hardcopy,onesidecover,makebox,amd}  % 默认选项
 \ProcessOptions
 
 \RequirePackage[a4paper,top=1.02in,bottom=1.3in,right=1.25in,left=1.25in]{geometry}
+%\RequirePackage[%
+%  a4paper,
+%  textwidth=12.0cm,textheight=24.0cm,
+%  bindingoffset=1cm,   
+%  top=2.5cm,%bottom=
+%  left=3cm,
+%  vmarginratio=1:1,                    
+%  headsep=0.8cm,
+%  headheight=1.0cm,
+%  footskip=1.5cm,
+%  % set marginparwith to drop the warning of short of
+%  marginparwidth=50pt,
+%  dvipdfm
+%  ]{geometry}
+
 
 % 参考文献等的引用
 \RequirePackage[sort&compress,numbers,square,super]{natbib}  
@@ -121,7 +149,7 @@
 \setsansfont{Nimbus Sans L}       % 英文无衬线字体: 替代 Arial
 \setmonofont{Nimbus Mono L}       % 等宽字体：Nimbus Mono L
 
-\newcommand{\lishu}{\CJKfontspec{LiSu}}%华文隶书
+%\newcommand{\lishu}{\CJKfontspec{LiSu}}%华文隶书
 
 % we also define \song \kai for our habit
 \setCJKfamilyfont{song}{Adobe Song Std} 
@@ -260,8 +288,8 @@
 \captionsetup[figure]{font={stretch=1.6}}
 
 % 在图号和图题名之间空一个汉字的位置。
-\DeclareCaptionLabelSeparator{twospace}{\hphantom{空}~}
-\captionsetup{labelsep=twospace}
+\DeclareCaptionLabelSeparator{addspace}{\hphantom{空}~}
+\captionsetup{labelsep=addspace}
 
 
 
@@ -395,79 +423,126 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 吉林大学硕士论文一些格式设定，尽量不要修改，除非学校格式变化了
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\long\def\ctitle#1{\long\def\@ctitle{#1} \let\Title\@ctitle }
+\long\def\ctitle#1{\long\def\@ctitle{#1}}
 \long\def\@ctitle{}
+
+\long\def\etitle#1{\long\def\@etitle{#1}}
+\long\def\@etitle{}
+
 \def\cdegree#1{\def\@cdegree{#1}}
 \def\@cdegree{}
+
 \def\csubject#1{\def\@csubject{#1}}
 \def\@csubject{}
+
 \def\cinterest#1{\def\@cinterest{#1}}
 \def\@cinterest{}
+
 \def\ccollege#1{\def\@ccollege{#1}}
 \def\@ccollege{}
+
 \def\collegenumber#1{\def\@collegenumber{#1}}
 \def\@collegenumber{}
+
 \def\cuniversity#1{\def\@cuniversity{#1}}
 \def\@cuniversity{}
+
 \def\cauthor#1{\def\@cauthor{#1} \let\Author\@cauthor}
 \def\@cauthor{}
+
 \def\csupervisor#1{\def\@csupervisor{#1}}
 \def\@csupervisor{}
+
 \def\csupervisorpost#1{\def\@csupervisorpost{#1}}
 \def\@csupervisorpost{}
+
 \def\csupervisordegree#1{\def\@csupervisordegree{#1}}
 \def\@csupervisordegree{}
-\def\cdate#1{\def\@cdate{#1} \let\Date\@cdate}
-\def\@cdate{}
-\long\def\cthesissummary#1{\long\def\@cthesissummary{#1}}
-\long\def\@cthesissummary{}
-\def\ckeywords#1{\def\@ckeywords{#1} \let\Keywords\@ckeywords}
-\def\@ckeywords{}
+
+%\def\cdate#1{\def\@cdate{#1} \let\Date\@cdate}
+%\def\@cdate{}
+
 \def\classification#1{\def\@classification{#1}}
 \def\@classification{}
+
 \def\securitylevel#1{\def\@securitylevel{#1}}
 \def\@securitylevel{}
+
 \long\def\caddress#1{\long\def\@caddress{#1}}
 \long\def\@caddress{}
+
 \def\telphone#1{\def\@telphone{#1}}
 \def\@telphone{}
+
 \def\studnumber#1{\def\@studnumber{#1}}
 \def\@studnumber{}
 
-\def\studyperiod#1{\def\@studyperiod{#1}}
-\def\@studyperiod{}
-\def\funded#1{\def\@funded{#1}}
-\def\@funded{}
-\def\fundnumber#1{\def\@fundnumber{#1}}
-\def\@fundnumber{}
+%\def\studyperiod#1{\def\@studyperiod{#1}}
+%\def\@studyperiod{}
+
+%\def\funded#1{\def\@funded{#1}}
+%\def\@funded{}
+
+%\def\fundnumber#1{\def\@fundnumber{#1}}
+%\def\@fundnumber{}
+
 \def\submissiondate#1{\def\@submissiondate{#1}}
 \def\@submissiondate{}
+
 \def\defensedate#1{\def\@defensedate{#1}}
 \def\@defensedate{}
  
-\long\def\etitle#1{\long\def\@etitle{#1}}
-\long\def\@etitle{}
-\def\edegree#1{\def\@edegree{#1}}
-\def\@edegree{}
-\def\esubject#1{\def\@csubject{#1}}
-\def\@esubject{}
-\def\einterest#1{\def\@einterest{#1}}
-\def\@einterest{}
-\def\ecollege#1{\def\@ecollege{#1}}
-\def\@ecollege{}
-\def\euniversity#1{\def\@euniversity{#1}}
-\def\@euniversity{}
-\def\eauthor#1{\def\@eauthor{#1}}
-\def\@eauthor{}
-\def\esupervisor#1{\def\@esupervisor{#1}}
-\def\@esupervisor{}
-\def\edate#1{\def\@edate{#1}}
-\def\@edate{}
+
+\def\@degreeTitle{}
+\def\@subjectName{}
+\def\@interestName{}
+\def\@subjectNameScd{}
+\def\@degreeName{}
+\if@JLU@amd
+    \def\@degreeTitle{学术学位}
+    \def\@subjectName{专业}
+    \def\@interestName{研究方向}
+    \def\@subjectNameScd{专业名称}
+    \def\@degreeName{学位类别}
+\else
+    \if@JLU@pmd
+        \def\@degreeTitle{专业学位}
+        \def\@subjectName{类别}
+        \def\@interestName{领域（方向）}
+        \def\@subjectNameScd{领域（方向）}
+        \def\@degreeName{类别}
+    \fi
+\fi
+        
+
+%\def\edegree#1{\def\@edegree{#1}}
+%\def\@edegree{}
+%\def\esubject#1{\def\@csubject{#1}}
+%\def\@esubject{}
+%\def\einterest#1{\def\@einterest{#1}}
+%\def\@einterest{}
+%\def\ecollege#1{\def\@ecollege{#1}}
+%\def\@ecollege{}
+%\def\euniversity#1{\def\@euniversity{#1}}
+%\def\@euniversity{}
+%\def\eauthor#1{\def\@eauthor{#1}}
+%\def\@eauthor{}
+%\def\esupervisor#1{\def\@esupervisor{#1}}
+%\def\@esupervisor{}
+%\def\edate#1{\def\@edate{#1}}
+%\def\@edate{}
+
+\long\def\cthesissummary#1{\long\def\@cthesissummary{#1}}
+\long\def\@cthesissummary{}
+
+\def\ckeywords#1{\def\@ckeywords{#1} \let\Keywords\@ckeywords}
+\def\@ckeywords{}
+
 \long\def\ethesissummary#1{\long\def\@ethesissummary{#1}}
 \long\def\@ethesissummary{}
+
 \def\ekeywords#1{\def\@ekeywords{#1}}
 \def\@ekeywords{}
-
 
 % 参考文件bib文件名
 \def\referencefile#1{\def\@referencefile{#1} }
@@ -477,17 +552,17 @@
 \def\referencestyle#1{\def\@referencestyle{#1} }
 \def\@referencestyle{}
 
-% 书脊题目高度
-\def\spineTitleHeight#1{\def\@spineTitleHeight{#1} }
-\def\@spineTitleHeight{}
-
-% 书脊题目高度
-\def\spineAuthorHeight#1{\def\@spineAuthorHeight{#1} }
-\def\@spineAuthorHeight{}
-
-% 书脊校名高度
-\def\spineUnivHeight#1{\def\@spineUnivHeight{#1} }
-\def\@spineUnivHeight{}
+%% 书脊题目高度
+%\def\spineTitleHeight#1{\def\@spineTitleHeight{#1} }
+%\def\@spineTitleHeight{}
+%
+%% 书脊题目高度
+%\def\spineAuthorHeight#1{\def\@spineAuthorHeight{#1} }
+%\def\@spineAuthorHeight{}
+%
+%% 书脊校名高度
+%\def\spineUnivHeight#1{\def\@spineUnivHeight{#1} }
+%\def\@spineUnivHeight{}
 
 
 % half of OK
@@ -541,6 +616,10 @@
 \RequirePackage{afterpage}
 \RequirePackage{typearea}
 \RequirePackage{atbegshi}% http://ctan.org/pkg/atbegshi
+
+
+\geometry{a4paper,top=1.02in,bottom=1.3in,right=1.25in,left=1.25in}
+
 
 \newcommand{\makeTwoSidesCover}{%
 	\afterpage{
@@ -602,19 +681,19 @@
 	    urlcolor=black,
 	    bookmarks=true,
 	    bookmarksopen=true,
-	    pdftitle={\Title},    % title
+	    pdftitle={\@ctitle},    % title
 	    pdfsubject={学位论文},   % subject of the document
-	    pdfauthor={\Author},     % author
+	    pdfauthor={\@cauthor},     % author
 	    %pdfcreator={},   % creator of the document
 	    %pdfproducer={},  % producer of the document Microsoft® PowerPoint® 2010
-	    pdfkeywords={\Keywords}, % list of keywords
+	    pdfkeywords={\@ckeywords}, % list of keywords
 	    pdfinfo={
-	CreationDate={\Date},%20191219071209
-	ModDate={\Date},
+	CreationDate={\@submissiondate},%20191219071209
+	ModDate={\@submissiondate},
 	},
 	}
 
-    \if@JLU@twosidecover
+    \if@JLU@twosidescover
      \makeTwoSidesCover
     \else
      \JLUcover
@@ -646,19 +725,19 @@
 }
 
 
-% 封面上竖向输出书脊
-\newcommand{\printVertically}[5]{
-    \begin{tikzpicture}[remember picture,overlay,shift=(current page.north west)]
-	\StrLen{#3}[\stringLenTmpVar]
-	\def\stepTmpVar{#4}
-	\def\xZeroPointTmpVar{#1}
-	\def\yZeroPointTmpVar{#2}
-    \foreach \x in {1,...,\stringLenTmpVar}
-    {
-    \node (\x) at (\xZeroPointTmpVar, \yZeroPointTmpVar-\stepTmpVar*\x) {#5 \StrMid{#3}{\x}{\x}};
-    }
-    \end{tikzpicture}
-}
+%% 封面上竖向输出书脊
+%\newcommand{\printVertically}[5]{
+%    \begin{tikzpicture}[remember picture,overlay,shift=(current page.north west)]
+%	\StrLen{#3}[\stringLenTmpVar]
+%	\def\stepTmpVar{#4}
+%	\def\xZeroPointTmpVar{#1}
+%	\def\yZeroPointTmpVar{#2}
+%    \foreach \x in {1,...,\stringLenTmpVar}
+%    {
+%    \node (\x) at (\xZeroPointTmpVar, \yZeroPointTmpVar-\stepTmpVar*\x) {#5 \StrMid{#3}{\x}{\x}};
+%    }
+%    \end{tikzpicture}
+%}
 
 
 
@@ -673,25 +752,27 @@
   \end{tikzpicture}
 }
 
-% 竖向打印论文题目
-\newcommand{\printSpineTitle}[1]{
-  \printVertically{2.5cm}{#1}{ \@ctitle }{0.2in}{}
-}
+%% 竖向打印论文题目
+%\newcommand{\printSpineTitle}[1]{
+%  \printVertically{2.5cm}{#1}{ \@ctitle }{0.2in}{}
+%}
+%
+%
+%% 竖向打印论文作者
+%\newcommand{\printSpineAuthor}[1]{
+%  \textbf{
+%    \printVertically{2.5cm}{#1}{ \@cauthor }{0.2in}{}
+%  }
+%}
+%
+%% 竖向打印校名
+%\newcommand{\printSpineUniv}[1]{
+%  \printVertically{2.5cm}{#1}{ 吉林大学 }{0.2in}{\kai}
+%}
 
-
-% 竖向打印论文作者
-\newcommand{\printSpineAuthor}[1]{
-  \textbf{
-    \printVertically{2.5cm}{#1}{ \@cauthor }{0.2in}{}
-  }
-}
-
-% 竖向打印校名
-\newcommand{\printSpineUniv}[1]{
-  \printVertically{2.5cm}{#1}{ 吉林大学 }{0.2in}{\kai}
-}
-
-  
+\RequirePackage[absolute,overlay]{textpos}
+\setlength{\TPHorizModule}{1cm}
+\setlength{\TPVertModule}{1cm}
 \newcommand{\JLUcover}{{
   \pdfbookmark[0]{封面}{JLUcover}
   \thispagestyle{empty}
@@ -701,9 +782,21 @@
 	    %top left x, top left y, bottom right x, bottom right y, middle bar x, line thickness
 	    \MakeCoverBox{2.2cm}{-2.5cm}{19.9cm}{-26.8cm}{2.85cm}{0.25mm}
 	
-	    \printSpineTitle{\@spineTitleHeight}
-	    \printSpineAuthor{\@spineAuthorHeight}
-	    \printSpineUniv{\@spineUnivHeight}
+	    %\printSpineTitle{\@spineTitleHeight}
+	    %\printSpineAuthor{\@spineAuthorHeight}
+	    %\printSpineUniv{\@spineUnivHeight}
+		\begin{textblock}{1}[0,0](1.45,2.5)
+        	\begin{minipage}[t][24.3cm][c]{0.5em} %\textheight
+				\linespread{1}\selectfont
+				%\vspace*{4cm}\par 
+				\vspace*{\fill}\par
+				% 标题、姓名、校名
+				\mdseries  \@ctitle \par\vfill
+				\bfseries \@cauthor \par\vfill \kai \mdseries 吉林大学\par 
+				%\vspace*{3cm} 
+				\vspace*{\fill}\par
+			\end{minipage}
+		\end{textblock}
 	\fi  
   
   
@@ -716,18 +809,18 @@
   \parbox[t][2.2cm][t]{\textwidth}{
     \settowidth{\jlutextwidthone}{研究生学号}
     \settowidth{\jlutextwidthtwo}{单位代码}
-    \settowidth{\jlutextwidththree}{10183}
+    \settowidth{\jlutextwidththree}{：10183}
 
     \makebox[\jlutextwidthone][s]{分类号} 
     \makebox[7.8cm][l]{：\@classification}%
-    \makebox[\jlutextwidthtwo][s]{单位代码}： 
+    \makebox[\jlutextwidthtwo][s]{单位代码} 
    %\makebox[2cm][l]{：}
-    \makebox[\jlutextwidththree][s]{\@collegenumber}\\
+    \makebox[\jlutextwidththree][s]{：\@collegenumber}\\
     \makebox[\jlutextwidthone][s]{研究生学号}  
     \makebox[7.8cm][l]{：\@studnumber}%    
-    \makebox[\jlutextwidthtwo][s]{密级}：       
+    \makebox[\jlutextwidthtwo][s]{密级}      
    %\makebox[2cm][l]{：}%
-    \makebox[\jlutextwidththree][s]{\@securitylevel}
+    \makebox[\jlutextwidththree][s]{：\@securitylevel}
   }
   }
   \begin{center}
@@ -735,12 +828,13 @@
   \end{center}
 
   \begin{center}
-   \lishu 
+   \li
    {\fontsize{40}{40}\selectfont 吉\hspace{.5cm}林\hspace{.5cm}大\hspace{.5cm}学}\\
    \vspace{.7cm}
    {\fontsize{38}{40}\selectfont 硕士学位论文}\\
    \vspace{.6cm}
-   {\fontsize{22}{35}\selectfont \textBF{(学术学位)}}\\%\bfseries
+   % 此处使用textBF命令是因为正常的粗体产生的PDF会有些字无法选中复制
+   {\fontsize{22}{35}\selectfont \textBF{(\@degreeTitle)}}\\%\bfseries
     
    \vspace{.6cm}
 
@@ -751,19 +845,20 @@
   \end{center}
   \vspace{1.0cm}
 
-  \renewcommand{\baselinestretch}{1.2} \small \normalsize
-  \sanhao \bfseries
-  \settowidth{\jlutextwidthone}{作者姓名}
-  \hspace{2cm}\makebox[\jlutextwidthone][s]{作者姓名}：\@cauthor
+%  \renewcommand{\baselinestretch}{1.2} \small \normalsize
+  \renewcommand{\baselinestretch}{1.6}\small\normalsize    % 2倍行距
+  \sanhao \bfseries 
+  \settowidth{\jlutextwidthone}{\@interestName}
+  \hspace{0.5cm}\makebox[\jlutextwidthone][s]{作者姓名}：\@cauthor
 
-  \hspace{2cm}\makebox[\jlutextwidthone][s]{专业}：\@csubject
+  \hspace{0.5cm}\makebox[\jlutextwidthone][s]{\@subjectName}：\@csubject
   
-  \hspace{2cm}\makebox[\jlutextwidthone][s]{研究方向}：\@cinterest
+  \hspace{0.5cm}\makebox[\jlutextwidthone][s]{\@interestName}：\@cinterest
 
-  \hspace{2cm}\makebox[\jlutextwidthone][s]{指导教师}：\@csupervisor\hphantom{空}\@csupervisorpost
+  \hspace{0.5cm}\makebox[\jlutextwidthone][s]{指导教师}：\@csupervisor\hphantom{空}\@csupervisorpost
 
-  \hspace{2cm}\makebox[\jlutextwidthone][s]{培养单位}：\@ccollege
-  \vfill                % 填充此间空白
+  \hspace{0.5cm}\makebox[\jlutextwidthone][s]{培养单位}：\@ccollege
+  \vspace*{\fill}\par                % 填充此间空白
   
   
   \renewcommand{\baselinestretch}{1.0} \small \normalsize
@@ -800,16 +895,18 @@
   \end{center}
   \vspace{5.0cm}
 
+  
   {\sihao\setlength{\parindent}{5em}
-    作者姓名：\@cauthor
+    \settowidth{\jlutextwidthone}{\@subjectNameScd ：}
+    \makebox[\jlutextwidthone][s]{作者姓名：}\@cauthor
     
-    专业名称：\@csubject
+    \makebox[\jlutextwidthone][s]{\@subjectNameScd ：}\@csubject
     
-    指导教师：\@csupervisor\hphantom{空}\@csupervisorpost
+    \makebox[\jlutextwidthone][s]{指导教师：}\@csupervisor\hphantom{空}\@csupervisorpost
     
-    学位类别：\@cdegree
+    \makebox[\jlutextwidthone][s]{\@degreeName ：}\@cdegree
     
-    答辩日期：\qquad\qquad 年\qquad 月\qquad 日
+    \makebox[\jlutextwidthone][s]{答辩日期：}\qquad\qquad 年\qquad 月\qquad 日
   }  
 } % end define \JLUtitlepage
 
@@ -937,11 +1034,12 @@
 %\renewcommand{\sectionmark}{}
 
 
+  
 
 
 % 输出双面封皮时需删掉第一页
 \makeatletter
-\@ifpackagewith{jluthesis2020}{twosidecover}{\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}}{}
+\@ifpackagewith{jluthesis2020}{twosidescover}{\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}}{}
 \makeatother
 
 \RequirePackage{algorithm}
