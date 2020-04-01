@@ -263,7 +263,7 @@
 \DeclareCaptionLabelSeparator{twospace}{\hphantom{空}~}
 \captionsetup{labelsep=twospace}
 
-  
+
 
 
 \renewcommand\contentsname{目\qquad 录}
@@ -944,7 +944,11 @@
 \@ifpackagewith{jluthesis2020}{twosidecover}{\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}}{}
 \makeatother
 
-
+\RequirePackage{algorithm}
+\makeatletter
+\renewcommand{\ALG@name}{算法}
+\makeatother
+\newcommand{\algorithmautorefname}{算法}
 
 
 \endinput
