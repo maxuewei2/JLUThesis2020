@@ -34,25 +34,29 @@
 \DeclareOption{hardcopy}{\@JLU@hardcopytrue\@JLU@debugfalse\@JLU@ebookfalse}
 
 \newif\if@JLU@makebox
-\newif\if@JLU@onesidecover
-\newif\if@JLU@twosidescover
+%\newif\if@JLU@onesidecover
+%\newif\if@JLU@twosidecover
 \DeclareOption{makebox}{\@JLU@makeboxtrue}
 \DeclareOption{nobox}{\@JLU@makeboxfalse}
-\DeclareOption{onesidecover}{\@JLU@onesidecovertrue\@JLU@twosidescoverfalse}
-\DeclareOption{twosidescover}{\@JLU@onesidecoverfalse\@JLU@twosidescovertrue\@JLU@makeboxfalse}
+%\DeclareOption{onesidecover}{\@JLU@onesidecovertrue\@JLU@twosidecoverfalse}
+%\DeclareOption{twosidecover}{\@JLU@onesidecoverfalse\@JLU@twosidecovertrue\@JLU@makeboxfalse}
 
 
 \newif\if@JLU@amd
 \newif\if@JLU@pmd
-\newif\if@JLU@phd
-\DeclareOption{amd}{\@JLU@amdtrue\@JLU@pmdfalse\@JLU@phdfalse}
-\DeclareOption{pmd}{\@JLU@amdfalse\@JLU@pmdtrue\@JLU@phdfalse}
-\DeclareOption{phd}{\@JLU@amdfalse\@JLU@pmdfalse\@JLU@phdtrue}
+\newif\if@JLU@phdplain
+\newif\if@JLU@phdfancy
+\DeclareOption{amd}{\@JLU@amdtrue\@JLU@pmdfalse\@JLU@phdplainfalse\@JLU@phdfancyfalse}
+\DeclareOption{pmd}{\@JLU@amdfalse\@JLU@pmdtrue\@JLU@phdplainfalse\@JLU@phdfancyfalse}
+\DeclareOption{phdplain}{\@JLU@amdfalse\@JLU@pmdfalse\@JLU@phdplaintrue\@JLU@phdfancyfalse}
+\DeclareOption{phdfancy}{\@JLU@amdfalse\@JLU@pmdfalse\@JLU@phdplainfalse\@JLU@phdfancytrue}
+
+
 
 
 \DeclareOption*{\PackageError{jluthesis2020}{Unknown option ‘\CurrentOption’}{
 Options allowed: 
-debug ebook hardcopy makebox nobox onesidecover twosidescover
+debug ebook hardcopy makebox nobox amd pmd phdplain phdfancy
 }}
 
  %其它的选项有用的无用的都交给 geometry 宏包处理，为了省事
@@ -62,10 +66,50 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 
 
 
-\ExecuteOptions{hardcopy,onesidecover,makebox,amd}  % 默认选项
+\ExecuteOptions{hardcopy,makebox,amd}  % 默认选项
 \ProcessOptions
 
+
+
+\def\@degreeTitle{}
+\def\@subjectLabel{}
+\def\@interestLabel{}
+\def\@subjectLabelScd{}
+\def\@degreeLabel{}
+\def\@degreeName{}
+\newif\if@JLU@md
+\newif\if@JLU@phd
+\@JLU@mdtrue\@JLU@phdfalse
+
+\if@JLU@amd
+    \def\@degreeTitle{学术学位}
+    \def\@subjectLabel{专业}
+    \def\@interestLabel{研究方向}
+    \def\@subjectLabelScd{专业名称}
+    \def\@degreeLabel{学位类别}
+    \def\@degreeName{硕士}
+\else
+    \if@JLU@pmd
+        \def\@degreeTitle{专业学位}
+        \def\@subjectLabel{类别}
+        \def\@interestLabel{领域（方向）}
+        \def\@subjectLabelScd{领域（方向）}
+        \def\@degreeLabel{类别}
+        \def\@degreeName{硕士}
+    \else
+        \def\@subjectLabelScd{专业名称}
+        \def\@degreeLabel{学位类别}
+        \def\@degreeName{博士}
+        \def\@subjectLabel{专业}
+    \def\@interestLabel{研究方向}
+        \@JLU@mdfalse\@JLU@phdtrue
+    \fi
+\fi
+       
+       
+       
 \RequirePackage[a4paper,top=1.02in,bottom=1.3in,right=1.25in,left=1.25in]{geometry}
+
 %\RequirePackage[%
 %  a4paper,
 %  textwidth=12.0cm,textheight=24.0cm,
@@ -89,17 +133,6 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 \RequirePackage{ifthen}
 \RequirePackage{xstring}
 \RequirePackage{fancyhdr}    % 设定页眉页脚
-
-
-% redefine pagestyle: plain
-\fancypagestyle{plain}{%
-  \fancyhf{}
-  \fancyhead[CO]{\ttfamily \xiaowu \centering \leftmark}
-  \fancyhead[CE]{\ttfamily \xiaowu \centering \rightmark}%
-  \fancyfoot{}
-  \fancyfoot[RO,LE]{\xiaowu \thepage}
-  \renewcommand{\headrulewidth}{0.4pt}
-  \renewcommand{\footrulewidth}{0pt}}
 
   
 \RequirePackage{setspace}
@@ -139,7 +172,7 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 \XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
 
 
-\setCJKmainfont{Adobe Song Std}   % 中文缺省字体
+\setCJKmainfont[BoldFont=Source Han Serif CN Heavy]{Adobe Song Std}   % 中文缺省字体 FZCuSong-B09S
 \setCJKsansfont{Adobe Heiti Std}  % 中文无衬线字体
 \setCJKmonofont{Adobe Kaiti Std}   % 中文数学字体
 
@@ -230,7 +263,7 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
   \fontsize{5.02}{6.02}\selectfont
   \setlength{\parindent}{10.04pt plus 1pt minus 0pt}} % 八号字   5bp
 
-\newcommand{\JLUrightmark}{吉林大学硕士学位论文}
+\newcommand{\JLUrightmark}{吉林大学{\@degreeName}学位论文}
 
 
   
@@ -439,6 +472,12 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 \def\csubject#1{\def\@csubject{#1}}
 \def\@csubject{}
 
+\def\csubjectscd#1{\def\@csubjectscd{#1}}
+\def\@csubjectscd{}
+
+\def\csubjecttrd#1{\def\@csubjecttrd{#1}}
+\def\@csubjecttrd{}
+
 \def\cinterest#1{\def\@cinterest{#1}}
 \def\@cinterest{}
 
@@ -489,35 +528,31 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 
 %\def\fundnumber#1{\def\@fundnumber{#1}}
 %\def\@fundnumber{}
+\def\@dateForCoverYear{}
+\def\@dateForCoverMonth{}
+\newcommand{\dateForCover}[2]{\def\@dateForCoverYear{#1}\def\@dateForCoverMonth{#2}}
 
-\def\submissiondate#1{\def\@submissiondate{#1}}
-\def\@submissiondate{}
+\def\@degreeObtainYear{}
+\def\@degreeObtainMonth{}
+\def\@degreeObtainDay{}
+\newcommand{\degreeObtainDate}[3]{\def\@degreeObtainYear{#1}\def\@degreeObtainMonth{#2}\def\@degreeObtainDay{#3}}
 
-\def\defensedate#1{\def\@defensedate{#1}}
-\def\@defensedate{}
+\def\@defenseYear{}
+\def\@defenseMonth{}
+\def\@defenseDay{}
+\newcommand{\defenseDate}[3]{\def\@defenseYear{#1}\def\@defenseMonth{#2}\def\@defenseDay{#3}}
+
+\def\@originalStatementYear{}
+\def\@originalStatementMonth{}
+\def\@originalStatementDay{}
+\newcommand{\originalStatementDate}[3]{\def\@originalStatementYear{#1}\def\@originalStatementMonth{#2}\def\@originalStatementDay{#3}}
  
-
-\def\@degreeTitle{}
-\def\@subjectName{}
-\def\@interestName{}
-\def\@subjectNameScd{}
-\def\@degreeName{}
-\if@JLU@amd
-    \def\@degreeTitle{学术学位}
-    \def\@subjectName{专业}
-    \def\@interestName{研究方向}
-    \def\@subjectNameScd{专业名称}
-    \def\@degreeName{学位类别}
-\else
-    \if@JLU@pmd
-        \def\@degreeTitle{专业学位}
-        \def\@subjectName{类别}
-        \def\@interestName{领域（方向）}
-        \def\@subjectNameScd{领域（方向）}
-        \def\@degreeName{类别}
-    \fi
-\fi
-        
+\def\@contributionStatementYear{}
+\def\@contributionStatementMonth{}
+\def\@contributionStatementDay{}
+\newcommand{\contributionStatementDate}[3]{\def\@contributionStatementYear{#1}\def\@contributionStatementMonth{#2}\def\@contributionStatementDay{#3}}
+ 
+ 
 
 %\def\edegree#1{\def\@edegree{#1}}
 %\def\@edegree{}
@@ -535,6 +570,16 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 %\def\@esupervisor{}
 %\def\edate#1{\def\@edate{#1}}
 %\def\@edate{}
+
+\long\def\committeeTable#1{\long\def\@committeeTable{#1}}
+\long\def\@committeeTable{
+\begin{tabular}{l@{\hspace{1.5cm}}l@{\hspace{1.5cm}}l@{\hspace{1.5cm}}l}
+    \multicolumn{4}{l}{答辩委员会组成：}\\
+            &姓名     & 职称   & 工作单位 \\
+            主席&&&\\
+            委员&&&\\
+    \end{tabular}
+}
 
 \long\def\cthesissummary#1{\long\def\@cthesissummary{#1}}
 \long\def\@cthesissummary{}
@@ -568,6 +613,16 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 %\def\spineUnivHeight#1{\def\@spineUnivHeight{#1} }
 %\def\@spineUnivHeight{}
 
+
+% redefine pagestyle: plain
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyhead[CO]{\ttfamily \xiaowu \centering \leftmark}
+  \fancyhead[CE]{\ttfamily \xiaowu \centering \rightmark}%
+  \fancyfoot{}
+  \fancyfoot[RO,LE]{\xiaowu \thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}}
 
 % half of OK
 % 摘要(置于目录前)
@@ -695,19 +750,26 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 %    }
 %}
 
+\newcommand{\printChinese}[1]{
+\StrLen{#1}[\stringLenTmpVar]
+\foreach \x in {1,...,\stringLenTmpVar}
+{\rotatebox[origin=c]{90}{\mdseries\StrMid{#1}{\x}{\x}} }
+}
+
+\newcommand{\printSpine}[1]{\rotatebox[origin=c]{-90}{#1}}
 
 \newcommand{\makeSpine}{
     \linespread{1}\selectfont
 	%\vspace*{4cm}\par 
 	\vspace*{\fill}\par
 	% 标题、姓名、校名
-	\mdseries  {\@ctitle} \par\vfill
-	\bfseries \@cauthor \par\vfill \kai \mdseries \@cuniversity \par 
+	\mdseries  {\@cspinetitle} \par\vfill
+	\bfseries \@cauthor \par\vfill \if@JLU@phd \song \else\kai\fi \mdseries \@cuniversity \par 
 	%\vspace*{3cm} 
 	\vspace*{\fill}\par 
 }
 
-\newcommand{\makeTwoSidesCover}{%
+\newcommand{\maketwosidecover}{%
 	\afterpage{
 	    \KOMAoptions{paper=460mm:297mm,paper=landscape,pagesize}
 	    \areaset{\paperwidth}{\paperheight}
@@ -746,14 +808,14 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 		    \vspace*{\fill}\par 
 		\end{minipage}
 		}
-		\clearpage
+%		\clearpage
 	    \KOMAoptions{paper=A4,pagesize}
 	    \recalctypearea
 	}
 }
 
 % 定义前言部分
-\newcommand{\makecover}{%
+\newcommand{\makecover}{{%
 	\hypersetup{
 	    colorlinks=false,
 	    linkcolor=black,
@@ -768,41 +830,58 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 	    %pdfproducer={},  % producer of the document Microsoft® PowerPoint® 2010
 	    pdfkeywords={\@ckeywords}, % list of keywords
 	    pdfinfo={
-	CreationDate={\@submissiondate},%20191219071209
-	ModDate={\@submissiondate},
+	CreationDate={\DTMnow},%20191219071209
+	ModDate={\DTMnow},
 	},
 	}
+	
+	\pagestyle{empty}
 
-    \if@JLU@twosidescover
-     \makeTwoSidesCover
-    \else
-     \JLUcover
-    \fi
-    \pagebreak
-
-  
-
+    %\if@JLU@twosidecover
+    %\maketwosidecover
+    %\else
+     
+    %\fi
+    %\pagebreak
+   \if@JLU@md
+   \JLUcover
+   \else
+      \if@JLU@phdplain
+          \JLUcover
+      \else
+          \JLUcover
+      \fi
+   \fi
+   
   \begin{titlepage}
-  
+    \pagestyle{empty}
+    %\let\cleardoublepage\clearpage
     % 扉页
-    \JLUtitlepage
-
+    \if@JLU@md
+        \JLUtitlepage
+    \else
+      \if@JLU@phdplain
+          \JLUtitlepage
+      \else
+          \JLUtitlepage
+      \fi
+   \fi
     % 原创声明
     \originalstatement
-
     % 授权声明
     \contributionstatement
    
    
+    
+    \cleardoublepage
     \pagestyle{plain}
-   
     % 摘要
     \thesissummary
     
     \thesissummaryenglish
     
   \end{titlepage}
-}
+}}
 
 
 
@@ -817,7 +896,9 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
   \end{tikzpicture}
 }
 
+\newcommand{\ifdateexistselse}[3]{\ifthenelse{\equal{#1}{}}{#3}{#2}}
 
+\newcommand{\ifdateexists}[2]{\ifdateexistselse{#1}{\hspace{4mm}{#1}\hspace{4mm}}{\ifthenelse{\equal{#2}{2}}{\qquad \quad}{\qquad}}}
 
 \RequirePackage[absolute,overlay]{textpos}
 \setlength{\TPHorizModule}{1cm}
@@ -866,51 +947,74 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
     \makebox[\jlutextwidththree][s]{：\@securitylevel}
   }
   }
+  \if@JLU@phdfancy
+  \else
   \begin{center}
    \includegraphics[width=3.2cm]{logo.png}
   \end{center}
-
+  \fi
+  
   \begin{center}
    \li
    {\fontsize{40}{40}\selectfont 吉\hspace{.5cm}林\hspace{.5cm}大\hspace{.5cm}学}\\
    \vspace{.7cm}
-   {\fontsize{38}{40}\selectfont 硕士学位论文}\\
+   {\fontsize{38}{40}\selectfont {\@degreeName}学位论文}\\
    \vspace{.6cm}
+   
+   \if@JLU@md   
+%\IfStrEq*{\@degreeName}{博士}{
    % 此处使用textBF命令是因为正常的粗体产生的PDF会有些字无法选中复制
    {\fontsize{22}{35}\selectfont \textBF{(\@degreeTitle)}}\\%\bfseries
-    
+   \fi
+%   }{}
+  \if@JLU@phdfancy
+  \else  
    \vspace{.6cm}
 
    \mdseries \hei \sanhao \@ctitle \\
    \vspace{0.8cm} 
    \xiaosan \sffamily \mdseries \@etitle
- 
+  \fi
   \end{center}
-  \vspace{1.0cm}
+  \vspace*{\fill}\par                % 填充此间空白
 
-%  \renewcommand{\baselinestretch}{1.2} \small \normalsize
-  \renewcommand{\baselinestretch}{1.6}\small\normalsize    % 2倍行距
+
+ \if@JLU@phdfancy
+ \begin{center}
+       \erhao \bfseries \@cauthor
+ \end{center}
+  \else 
+ {  
+  \renewcommand{\baselinestretch}{1.6}\small\normalsize  
   \sanhao \bfseries 
-  \settowidth{\jlutextwidthone}{\@interestName}
-  \hspace{0.5cm}\makebox[\jlutextwidthone][s]{作者姓名}：\@cauthor
-
-  \hspace{0.5cm}\makebox[\jlutextwidthone][s]{\@subjectName}：\@csubject
-  
-  \hspace{0.5cm}\makebox[\jlutextwidthone][s]{\@interestName}：\@cinterest
-
-  \hspace{0.5cm}\makebox[\jlutextwidthone][s]{指导教师}：\@csupervisor\hphantom{空}\@csupervisorpost
-
-  \hspace{0.5cm}\makebox[\jlutextwidthone][s]{培养单位}：\@ccollege
+  \settowidth{\jlutextwidthone}{\@interestLabel}
+  \noindent\hphantom{空空}  
+  \parbox{\textwidth}{
+  \makebox[\jlutextwidthone][s]{作者姓名}：\@cauthor\\
+  \makebox[\jlutextwidthone][s]{\@subjectLabel}：\@csubject\\
+  \makebox[\jlutextwidthone][s]{\@interestLabel}：\@cinterest\\
+  \makebox[\jlutextwidthone][s]{指导教师}：\@csupervisor\hphantom{空}\@csupervisorpost\\
+  \makebox[\jlutextwidthone][s]{培养单位}：\@ccollege
+  }
+  }
+\fi
   \vspace*{\fill}\par                % 填充此间空白
   
   
   \renewcommand{\baselinestretch}{1.0} \small \normalsize
   \sanhao \bfseries
    \begin{center}
-  \qquad \qquad 年 \qquad 月
+   \ifdateexists{\@dateForCoverYear}{2}年 \ifdateexists{\@dateForCoverMonth}{1} 月
    \end{center}
-
+ \if@JLU@phdfancy
+ \vspace*{3cm}\par                % 填充此间空白
+ \fi
 }}  % end define \JLUcover
+
+
+
+\def\@yearblank{\qquad\quad}
+\def\@dayblank{\qquad}
 
 % 扉页
 % define \JLUtitlepage
@@ -920,8 +1024,13 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
   \pdfbookmark[0]{扉页}{JLUtitlepage}  
   \renewcommand{\baselinestretch}{2.0}\small\normalsize    % 2倍行距
   
-
-  \parbox[t][2.5cm][t]{\textwidth}{\begin{center}\end{center}}  
+  \if@JLU@phdfancy
+    \begin{center}
+       \includegraphics[width=3.2cm]{logo.png}
+    \end{center}
+  \else
+    \parbox[t][2.5cm][t]{\textwidth}{\begin{center}\end{center}}    
+  \fi
   
   \begin{center}
     \sanhao\setlength{\parindent}{0pt}
@@ -930,27 +1039,44 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
     
     \@ctitle
     
+    \vspace{1.0cm}
     %\rule{5cm}{0.4pt}
     
     \sffamily \@etitle 
     
     %\rule{\textwidth}{0.4pt}
   \end{center}
-  \vspace{5.0cm}
-
+ 
+\vspace*{\fill}\par                % 填充此间空白
   
   {\sihao\setlength{\parindent}{5em}
-    \settowidth{\jlutextwidthone}{\@subjectNameScd ：}
-    \makebox[\jlutextwidthone][s]{作者姓名：}\@cauthor
-    
-    \makebox[\jlutextwidthone][s]{\@subjectNameScd ：}\@csubject
-    
-    \makebox[\jlutextwidthone][s]{指导教师：}\@csupervisor\hphantom{空}\@csupervisorpost
-    
-    \makebox[\jlutextwidthone][s]{\@degreeName ：}\@cdegree
-    
-    \makebox[\jlutextwidthone][s]{答辩日期：}\qquad\qquad 年\qquad 月\qquad 日
+    \settowidth{\jlutextwidthone}{\@subjectLabelScd ：}
+    \settowidth{\jlutextwidthtwo}{\@yearblank}
+    \settowidth{\jlutextwidththree}{\@dayblank}    
+    \noindent\hphantom{空空}
+    \parbox{\textwidth}{
+    \makebox[\jlutextwidthone][s]{作者姓名：}\@cauthor\\
+    \makebox[\jlutextwidthone][s]{\@subjectLabelScd ：}\@csubjectscd\\ 
+    \if@JLU@phdfancy \makebox[\jlutextwidthone][s]{研究方向：}\@cinterest\\ \fi
+    \makebox[\jlutextwidthone][s]{指导教师：}\@csupervisor\hphantom{空}\@csupervisorpost\\  
+    \makebox[\jlutextwidthone][s]{\@degreeLabel ：}\@cdegree\\
+    \if@JLU@phdfancy \makebox[\jlutextwidthone][s]{培养单位：}\@ccollege\\ \fi    
+    \if@JLU@md{
+    \makebox[\jlutextwidthone][s]{答辩日期：}\ifdateexists{\@defenseYear}{2}年\ifdateexists{\@defenseMonth}{1}月\ifdateexists{\@defenseDay}{1}日}
+    \else{
+    论文答辩日期：\ifdateexistselse{\@defenseYear}{\makebox[\jlutextwidthtwo][c]{\@defenseYear}}{\@yearblank}年\ifdateexistselse{\@defenseMonth}{\makebox[\jlutextwidththree][c]{\@defenseMonth}}{\@dayblank}月\ifdateexistselse{\@defenseDay}{\makebox[\jlutextwidththree][c]{\@defenseDay}}{\@dayblank}日\\
+    授予学位日期：\ifdateexistselse{\@degreeObtainYear}{\makebox[\jlutextwidthtwo][c]{\@degreeObtainYear}}{\@yearblank}年\ifdateexistselse{\@degreeObtainMonth}{\makebox[\jlutextwidththree][c]{\@degreeObtainMonth}}{\@dayblank}月\ifdateexistselse{\@degreeObtainDay}{\makebox[\jlutextwidththree][c]{\@degreeObtainDay}}{\@dayblank}日}
+    \fi    
+    }
   }  
+  \if@JLU@phd
+    \vspace*{\fill}\par                % 填充此间空白
+    \if@JLU@phdfancy \hspace{3cm} \else \hspace{5cm} \fi
+    \wuhao \song
+    \@committeeTable
+  \else
+     \vspace{4.0cm}   
+  \fi
 } % end define \JLUtitlepage
 
 
@@ -961,14 +1087,14 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 \newcommand{\originalstatement}{%
   \newpage
   \thispagestyle{empty}
-  \pdfbookmark[0]{吉林大学硕士学位论文原创性声明}{originalstatement}  
+  \pdfbookmark[0]{吉林大学{\@degreeName}学位论文原创性声明}{originalstatement}  
   \renewcommand{\baselinestretch}{2.0}\small\normalsize    % 2倍行距
 
   \parbox[t][1cm][t]{\linewidth}{\begin{center}\end{center}}
 
   \begin{center}
     \sanhao
-    \noindent 吉林大学硕士学位论文原创性声明
+    \noindent 吉林大学{\@degreeName}学位论文原创性声明
   \end{center}
   
   {\sihao 本人郑重声明：所呈交学位论文，是本人在指导教师的指导下，
@@ -979,7 +1105,7 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 
     \hspace{5cm}学位论文作者签名：
 
-    \hspace{5cm}日期：\qquad\quad 年\qquad 月\qquad 日
+    \hspace{5cm}日期：\ifdateexists{\@originalStatementYear}{2}年\ifdateexists{\@originalStatementMonth}{1}月\ifdateexists{\@originalStatementDay}{1}日
   }
 } % end define \originalstatement
 
@@ -1011,15 +1137,15 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 
 （保密论文在解密后应遵守此规定）
 
-    \indent 论文级别：{$\blacksquare$}硕士\quad {$\Box$}博士
+    \indent 论文级别：\if@JLU@md{$\blacksquare$} \else {$\Box$} \fi 硕士\quad \if@JLU@phd{$\blacksquare$} \else {$\Box$} \fi 博士
     
-    \indent 学科专业：\@csubject
+    \indent 学科专业：\@csubjecttrd
 
     \indent 论文题目：\@ctitle 
     
     \indent 作者签名：\qquad\qquad\qquad\qquad\qquad\quad 指导教师签名：\\
     
-    \hspace*{8cm} 年\qquad 月\qquad 日
+    \hspace*{7cm} \ifdateexists{\@contributionStatementYear}{2}年\ifdateexists{\@contributionStatementMonth}{1}月\ifdateexists{\@contributionStatementDay}{1}日
 
     \indent 作者联系地址（邮编）：\@caddress \\
 
@@ -1038,7 +1164,7 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 	\xiaosi
 	\bibliographystyle{\@referencestyle}
 	\clearpage
-	\phantomsection
+	%\phantomsection
 	%\addcontentsline{toc}{chapter}{参考文献}
 	\bibliography{\@referencefile}
 }
@@ -1048,6 +1174,7 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 \newenvironment{acknowledgement}
     {
     \chapter*{致 \qquad 谢}
+    \phantomsection
     \addcontentsline{toc}{chapter}{致\qquad 谢}
     \markboth{致 \qquad 谢}{致 \qquad 谢}%
     }
@@ -1057,6 +1184,7 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 \newenvironment{selfintroduction}
     {
   \chapter*{作者简介及在学期间所取得的科研成果}
+  \phantomsection
   \addcontentsline{toc}{chapter}{作者简介及在学期间所取得的科研成果}
   \markboth{作者简介及在学期间所取得的科研成果}{作者简介及在学期间所取得的科研成果}%
     }
@@ -1074,7 +1202,7 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 % use the redefined `plain' pagestyle
 \pagestyle{plain}
 % we forbid \sectionmark to change the \rightmark
-%\renewcommand{\sectionmark}{}
+\renewcommand{\sectionmark}{}
 
 
   
@@ -1082,7 +1210,7 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 
 % 输出双面封皮时需删掉第一页
 \makeatletter
-\@ifpackagewith{jluthesis2020}{twosidescover}{\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}}{}
+\@ifpackagewith{jluthesis2020}{twosidecover}{\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}}{}
 \makeatother
 
 \RequirePackage{algorithm}
@@ -1092,7 +1220,7 @@ debug ebook hardcopy makebox nobox onesidecover twosidescover
 \newcommand{\algorithmautorefname}{算法}
 
 
-  \renewcommand{\baselinestretch}{1.6}\small\normalsize    
+\renewcommand{\baselinestretch}{1.6}\small\normalsize    
 
 \endinput
 %%

@@ -1,19 +1,20 @@
-\documentclass[openany,a4paper,12pt,oneside,AutoFakeBold]{book}%
-
-% 可用选项有 debug|ebook|hardcopy makebox|nobox onesidecover|twosidescover amd|pmd
+\documentclass[twoside,a4paper,12pt]{book}%,AutoFakeBold,twoside,openright,
+% 可用选项有 debug|ebook|hardcopy, makebox|nobox, amd|pmd|phdplain|phdfancy.
 % debug 生成的PDF带框线，方便调试
 % ebook 带彩色文字的PDF
 % hardcopy 无彩色文字的PDF
 % makebox 输出的封面带框线和书脊，
 % nobox 输出的封面无框线和书脊
-% onesidecover 输出的封面为单页
-% twosidecover 输出的封面为双页
-% amd 学术学位使用
-% pmd 专业学位使用
-% 默认为 hardcopy,onesidecover,makebox,amd
-% 举例如下
-%\usepackage[ebook,twosidescover,amd]{jluthesis2020}%
-\usepackage[onesidecover,makebox,pmd]{jluthesis2020}%
+% amd 学硕使用
+% pmd 专硕使用
+% phdplain 博士论文简装
+% phdfancy 博士论文精装
+% 默认为 hardcopy,makebox,amd
+% 双面印刷需在documentclass选项中声明twoside
+% 单面印刷需在documentclass选项中声明oneside
+% 选项使用举例如下
+%\usepackage[ebook,nobox,amd]{jluthesis2020}%
+\usepackage[hardcopy,makebox,phdplain]{jluthesis2020}%phdplain
 
 
 \usepackage{algcompatible}
@@ -36,11 +37,14 @@
 
 
 % 手动在长标题中利用 \par 输入断行，
-\ctitle{吉林大学硕士学位论文排版示例}
-\etitle{Sample Typesetting for JLUMasterThesisLaTeX}
-\cdegree{工学硕士}
-\csubject{计算机应用技术}
-\cinterest{数据挖掘}
+\ctitle{吉林大学学位论文排版v0.2示例}
+\cspinetitle{\printSpine{\printChinese{吉林大学学位论文排版}v0.2\printChinese{示例}}}
+\etitle{Sample Typesetting for JLUThesisLaTeX v0.2}
+\csubject{计算机应用技术}   % 封面的『专业』或『类别』
+\cinterest{数据挖掘}  % 封面的『研究方向』或『领域（方向）』，博士精装版扉页的『研究方向』
+\csubjectscd{计算机应用技术}  % 扉页的『专业名称』或『领域（方向）』
+\csubjecttrd{计算机应用技术}  % 学位论文授权说明中的『学科专业』
+\cdegree{工学博士}  % 扉页的『学位类别』或『类别』
 \ccollege{计算机科学与技术学院}
 \collegenumber{10183}
 \cuniversity{吉林大学}
@@ -53,9 +57,22 @@
 \caddress{吉林大学计算机科学与技术学院，130012} 
 \telphone{(+86) 1884454XXXX}  
 \studnumber{201753XXXX}
-\submissiondate{\DTMnow}
-\defensedate{2020-06-12}
+% 以下日期若注释掉，对应的日期将留空
+\dateForCover{2020}{3}
+\degreeObtainDate{2020}{7}{12}
+\defenseDate{2020}{6}{12}
+\originalStatementDate{2020}{4}{1}
+\contributionStatementDate{2020}{5}{1}
 
+\committeeTable{
+    \begin{tabular}{l@{\hspace{1.5cm}}l@{\hspace{1.5cm}}l@{\hspace{1.5cm}}l}
+    \multicolumn{4}{l}{答辩委员会组成：}\\
+            &姓名     & 职称   & 工作单位 \\
+            主席&&&\\
+            委员&&&\\
+    \end{tabular}
+    \vspace{2cm}
+}
 
 
 \cthesissummary{
@@ -82,6 +99,7 @@ Computers are used as control systems for a wide variety of industrial and consu
 Early computers were only conceived as calculating devices. Since ancient times, simple manual devices like the abacus aided people in doing calculations. Early in the Industrial Revolution, some mechanical devices were built to automate long tedious tasks, such as guiding patterns for looms. More sophisticated electrical machines did specialized analog calculations in the early 20th century. The first digital electronic calculating machines were developed during World War II. The first semiconductor transistors in the late 1940s were followed by the silicon-based MOSFET (MOS transistor) and monolithic integrated circuit (IC) chip technologies in the late 1950s, leading to the microprocessor and the microcomputer revolution in the 1970s. The speed, power and versatility of computers have been increasing dramatically ever since then, with MOS transistor counts increasing at a rapid pace (as predicted by Moore's law), leading to the Digital Revolution during the late 20th to early 21st centuries.
 
 Conventionally, a modern computer consists of at least one processing element, typically a central processing unit (CPU) in the form of a metal-oxide-semiconductor (MOS) microprocessor, along with some type of computer memory, typically MOS semiconductor memory chips. The processing element carries out arithmetic and logical operations, and a sequencing and control unit can change the order of operations in response to stored information. Peripheral devices include input devices (keyboards, mice, joystick, etc.), output devices (monitor screens, printers, etc.), and input/output devices that perform both functions (e.g., the 2000s-era touchscreen). Peripheral devices allow information to be retrieved from an external source and they enable the result of operations to be saved and retrieved.
+
 }
 
 \ekeywords{a, b, c}
@@ -93,20 +111,21 @@ Conventionally, a modern computer consists of at least one processing element, t
 
 \pagenumbering{Roman} 
 \tableofcontents
-\pagebreak
 
 
+\cleardoublepage
+\pagenumbering{Roman} 
 \pdfbookmark{插图目录}{lof}
 \label{lof}
 \listoffigures
 
-\pagebreak
 
+\clearpage
 \pdfbookmark{表格目录}{lot}
 \label{lot}
 \listoftables
 
-\clearpage
+
 \pagenumbering{arabic}
 
 

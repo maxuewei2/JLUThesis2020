@@ -1,14 +1,16 @@
-# JLUMasterThesisLaTeX
+# JLUThesisLaTeX
 
-吉林大学硕士学位论文 LaTeX 模板。
-可生成学硕或专硕版本，可生成单页或双页封面。
+吉林大学学位论文 LaTeX 模板。
+
+可生成学硕、专硕、博士简装、博士精装 PDF 论文，可生成单面或双面印刷版本，可生成单页或双页封面。
 
 ## 示例
 
-示例文档见 [example-onesidecover.pdf](https://github.com/maxuewei2/JLUMasterThesisLaTeX/blob/master/example-onesidecover.pdf) 和 [example-twosidescover.pdf](https://github.com/maxuewei2/JLUMasterThesisLaTeX/blob/master/example-twosidescover.pdf)。
+示例文档见 [example_files](https://github.com/maxuewei2/JLUThesisLaTeX/tree/master/example_files) 下各文件。
 
+使用示例见 [example.tex](https://github.com/maxuewei2/JLUThesisLaTeX/blob/master/example.tex)。
 ## 使用
-可用选项有 `debug|ebook|hardcopy`， `makebox|nobox` ，`onesidecover|twosidescover` ，`amd|pmd`
+可用选项有 `debug | ebook | hardcopy`， `makebox | nobox` ，`amd | pmd | phdplain | phdfancy`
 
 |选项|作用|
 |:---:|---|
@@ -17,17 +19,17 @@
 |hardcopy| 无彩色文字的PDF|
 |makebox| 输出的封面带框线和书脊|
 |nobox| 输出的封面无框线和书脊|
-|onesidecover| 输出的封面为单页|
-|twosidescover |输出的封面为双页|
-|amd| 学术学位使用|
-|pmd |专业学位使用|
+|amd| 学术学位硕士使用|
+|pmd |专业学位硕士使用|
+|phdplain| 博士简装版使用|
+|phdfancy |博士精装版使用|
 
-默认为 `hardcopy,onesidecover,makebox,amd`
+默认为 `hardcopy, makebox, amd`
 
 举例如下
   ```
-       \usepackage[ebook,twosidescover,amd]{jluthesis2020}
-       \usepackage[onesidecover,makebox,pmd]{jluthesis2020}
+       \usepackage[ebook, makebox, amd]{jluthesis2020}
+       \usepackage[hardcopy, nobox, phdplain]{jluthesis2020}
   ```
 
 - 建议安装 TeX Live 并使用 XeLaTeX 编译。<br/>
@@ -39,6 +41,7 @@
 	- Adobe Kaiti Std
 	- Adobe Fangsong Std
 	- LiSu
+	- Source Han Serif CN Heavy (思源宋体粗体)
 	- Nimbus Roman No9 L
 	- Nimbus Sans L
 	- Nimbus Mono L
