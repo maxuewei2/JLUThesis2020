@@ -569,14 +569,15 @@
 \fancypagestyle{plain}{%
     \fancyhf{}
     \fancyhead[CO]{\kai \xiaowu \centering \leftmark}
-    \fancyhead[CE]{\kai \xiaowu \centering \rightmark}%
+    \fancyhead[CE]{\kai \xiaowu \centering \jluRightMark}%
     \fancyfoot{}
     \fancyfoot[RO,LE]{\xiaowu \thepage}
     \renewcommand{\headrulewidth}{0.4pt}
     \renewcommand{\footrulewidth}{0pt}
 }
 
-
+%\renewcommand{\sectionmark}[1]{\markboth{}{\emph{\thesection~#1}}}
+%\renewcommand{\subsectionmark}[1]{}% Remove \subsection from header
 
 
 \RequirePackage{ifthen}
@@ -612,7 +613,7 @@
 %\RequirePackage{graphicx}
 %\RequirePackage{textcomp}
 %\RequirePackage{xcolor}
-%\RequirePackage{fancybox}    % produce box-contained texts
+\RequirePackage{fancybox}    % produce box-contained texts
 %\RequirePackage[inline]{enumitem}
 %\RequirePackage{url}
 %\RequirePackage{afterpage}
@@ -1290,8 +1291,8 @@
     \vspace{2.0em}
 
     {
-        \hei\xiaosi\noindent 
-        关键词：\\ \indent \xiaosi \song \@jlu@cKeywords
+        \rmfamily \bfseries \xiaosi\noindent 
+        关键词：\\ \indent \xiaosi \song \mdseries \@jlu@cKeywords
     }
 }  % end define \thesissummary
 
@@ -1314,8 +1315,8 @@
     \vspace{2.0em}
 
     {
-        \hei\xiaosi\noindent 
-        Keywords: \\ \indent \xiaosi \song  \@jlu@eKeywords
+        \rmfamily \bfseries \xiaosi\noindent 
+        Keywords: \\ \indent \xiaosi \song \mdseries \@jlu@eKeywords
     }
 }  % end define \thesissummary
 
@@ -1344,7 +1345,7 @@
         \message{^^JjluPageNum jluAcknowledgment \therealpage ^^J}
     }
     {
-        \message{^^JjluPageNum jluLastPage \therealpage ^^J}
+        \message{^^JjluPageNum jluAcknowledgmentLastPage \therealpage ^^J}
     }
 
 
@@ -1370,7 +1371,7 @@
 % use the redefined `plain' pagestyle
 \pagestyle{plain}
 % we forbid \sectionmark to change the \rightmark
-\renewcommand{\sectionmark}{}
+%\renewcommand{\sectionmark}{}
 
 
 \if@jlu@twoSideCover
@@ -1396,9 +1397,9 @@
 
 \if@jlu@onlyCover
     \if@jlu@twoSideCover
-    \keeppages{2}
+        \keeppages{2}
     \else
-    \keeppages{1}
+        \keeppages{1}
     \fi
 \fi
 

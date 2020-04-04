@@ -1,3 +1,4 @@
+tmp*
 example*.pdf
 !example_files/example*.pdf
 .unwanted/
