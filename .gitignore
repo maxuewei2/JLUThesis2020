@@ -1,4 +1,7 @@
+example*.pdf
+!example_files/example*.pdf
 .unwanted/
+transparent.png
 fonts/
 cover.tex
 cover.pdf

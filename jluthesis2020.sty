@@ -767,6 +767,7 @@
     
     
 
+\newlinechar=`\^^J
 
 
 % 以下是一些输出书脊的命令，但模板中没用到
@@ -1086,6 +1087,7 @@
     \if@jlu@phdfancy
         \vspace*{3cm}\par                % 填充此间空白
     \fi
+    \message{^^JjluPageNum jluCover \therealpage ^^J}
 }}  % end define \jlucover
 
 
@@ -1121,7 +1123,9 @@
     
        %\rule{\textwidth}{0.4pt}
     \end{center}
- 
+    
+    \message{^^JjluPageNum jluTitlePage \therealpage ^^J}
+    
     \vspace*{\fill}\par                % 填充此间空白
   
     {
@@ -1171,6 +1175,12 @@
     \fi
 } % end define \jlutitlepage
 
+%\newcommand{\overlayTransparent}{
+%  \begin{tikzpicture}[remember picture,overlay,shift=(current page.north west)]
+%  \node (transparent) at (0,0)
+%    {\includegraphics[width=3\paperwidth,height=3\paperheight]{logo.png}};
+%  \end{tikzpicture}
+%}
 
 % 吉林大学硕士学位论文原创性声明
 \newcommand{\@jlu@printOriginalStatementPage}{%
@@ -1185,7 +1195,9 @@
         \sanhao
         \noindent 吉林大学{\@jlu@degreeName}学位论文原创性声明
     \end{center}
-  
+
+    \message{^^JjluPageNum jluOriginalStatement \therealpage ^^J}
+    
     {
         \sihao 本人郑重声明：所呈交学位论文，是本人在指导教师的指导下，
         独立进行研究工作所取得的成果。除文中已经注明引用的内容外，本论文
@@ -1218,7 +1230,9 @@
         \sanhao
         \noindent 关于学位论文使用授权的声明
     \end{center}
-  
+    
+    \message{^^JjluPageNum jluContributionStatement \therealpage ^^J}
+    
     {
         \sihao
         本人完全了解吉林大学有关保留、使用学位论文的规定,同意吉
@@ -1268,6 +1282,8 @@
     \begin{center}
         \sihao \bfseries \rmfamily \@jlu@cTitle
     \end{center}
+    
+    \message{^^JjluPageNum jluCAbstract \therealpage ^^J}
 
     {\xiaosi \@jlu@cAbstract}
 
@@ -1305,28 +1321,31 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 % 生成参考文献
-\newcommand{\jluPrintRefrence}{%
+\newcommand{\jluPrintReference}{%
     %最后设置格式，插入参考文献。
     \xiaosi
     \bibliographystyle{\@jlu@referenceStyle}
     \clearpage
     %\phantomsection
     %\addcontentsline{toc}{chapter}{参考文献}
+    \message{^^JjluPageNum jluReference \therealpage ^^J}
     \bibliography{\@jlu@referenceFile}
 }
 
 
 
-\newenvironment{jluAcknowledgement}
+\newenvironment{jluAcknowledgment}
     {
         \chapter*{致 \qquad 谢}
         \phantomsection
         \addcontentsline{toc}{chapter}{致\qquad 谢}
         \markboth{致 \qquad 谢}{致 \qquad 谢}%
+        \message{^^JjluPageNum jluAcknowledgment \therealpage ^^J}
     }
-    {}
+    {
+        \message{^^JjluPageNum jluLastPage \therealpage ^^J}
+    }
 
 
 \newenvironment{jluSelfIntroduction}
@@ -1335,6 +1354,7 @@
         \phantomsection
         \addcontentsline{toc}{chapter}{作者简介及在学期间所取得的科研成果}
         \markboth{作者简介及在学期间所取得的科研成果}{作者简介及在学期间所取得的科研成果}%
+        \message{^^JjluPageNum jluSelfIntroduction \therealpage ^^J}
     }
     {}
 
@@ -1362,7 +1382,6 @@
   \xdef\keep@pages{#1}% Store pages to keep
   \AtBeginShipout{% At shipout, decide whether to discard page/not
     \keeppagefalse%
-    \show\jluthesisVersion
     \renewcommand*{\do}[1]{% How to handle each page entry in csv list
       \ifnum\therealpage=##1\relax%
         \keeppagetrue% Page should be kept

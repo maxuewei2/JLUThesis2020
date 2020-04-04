@@ -25,6 +25,7 @@
 |manualSpine |手动输出书脊|
 |onlyCover | 仅输出封面页|
 |twoSideCover | 输出双页封面|
+
  默认为 `hardcopy,amd`，且`nobox=false, manualSpine=false, onlyCover=false, twoSideCover=false`
 
 举例如下
@@ -55,6 +56,8 @@
 
 - 要生成 MS Word 文档，可使用 pandoc 或 Adobe Acrobat DC，也可直接用 MS Word 打开 PDF 得到 Word 文档，只是这三种方式得到的 Word 文档质量不同。
 
+- 查重时可能会把原创声明、授权声明、参考文献、致谢等包括进去，可使用 `makeCrosscheckVersion.sh` 制作查重版本，生成的 PDF 文档中原创声明、授权声明、作者简介、致谢四部分的文字将无法导出无法复制。之所以没将参考文献也做成不可复制的，是觉得查重系统会从这里面提取引用。
+
 ## 免责声明
 
 此模板为个人实现，使用者应当自行承担一切后果。
@@ -70,7 +73,7 @@
  jluthesis 原档存储于 google code，但已无法下载。<br/>
  此模板参考的 jluthesis 下载自 [dartall](https://github.com/dartall/jluthesis) 。<br/>
 - 生成双页封面的部分参考 [pkuthss](https://gitea.com/CasperVector/pkuthss/src/branch/master/doc/example/spine.tex) 和 [jiafeng5513/JLU_Dissertation](https://github.com/jiafeng5513/JLU_Dissertation)。
-- 2020.4.3 得到学院查重结果，两个查重平台重复率都在 1.X%，且主要集中在原创声明和授权声明的部分，其他人基本不会出现这种情况，大概是查重系统会自动识别论文格式，并忽略了摘要之前的内容，不知道为什么我的没有识别出来。对这一点不放心的或许可以使用 pdfseparate 及 pdfjoin 之类的工具将 LaTeX 生成的 PDF 与 Word 生成的 PDF 组合，或者将两个声明、参考文献、致谢等改为不可选中不可复制。
+- 2020.4.3 得到学院查重结果，两个查重平台重复率都在 1.X%，且主要集中在原创声明和授权声明的部分。其他人基本不会出现这种情况，大概是查重系统会自动识别论文格式，并忽略了摘要之前的内容，不知道为什么我的没有识别出来。对这一点不放心的或许可以使用工具将 LaTeX 生成的 PDF 与 Word 生成的 PDF 的一些页面组合，或者将原创声明、授权声明、致谢等改为不可选中不可复制 (即使用 `makeCrosscheckVersion.sh` 脚本)。
 
 ## 联系方式
 
