@@ -1,4 +1,7 @@
+.unwanted/
 fonts/
+cover.tex
+cover.pdf
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
