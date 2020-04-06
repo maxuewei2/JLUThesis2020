@@ -333,7 +333,7 @@
 \RequirePackage[xetex]{geometry}
 
 \newcommand{\@jlu@setGeometry}{
-    \newgeometry{a4paper,top=1.02in,bottom=1.3in,right=1.25in,left=1.25in}
+    \newgeometry{top=1.02in,bottom=1.3in,right=1.25in,left=1.25in}
 }
 
 \@jlu@setGeometry
@@ -583,9 +583,9 @@
 \RequirePackage{ifthen}
 \RequirePackage{xstring}
 \RequirePackage{calc}
-
 %\RequirePackage[user,abspage]{zref}
-\usepackage{xassoccnt}
+\RequirePackage{xassoccnt}
+
 
 \NewTotalDocumentCounter{totalrealpage}
 \NewDocumentCounter{realpage}
@@ -601,8 +601,9 @@
 \RequirePackage{xspace}
 
 % 设置参考文献引用
-\RequirePackage[sort&compress,numbers,square,super]{natbib}  
-\RequirePackage{gbt7714}
+\RequirePackage[sort&compress]{gbt7714}
+%\RequirePackage{natbib}  
+
 \RequirePackage{hypernat}  % must be loaded after natbib and hyperref
 
 
@@ -1326,11 +1327,12 @@
 \newcommand{\jluPrintReference}{%
     %最后设置格式，插入参考文献。
     \xiaosi
-    \bibliographystyle{\@jlu@referenceStyle}
+    
     \clearpage
     %\phantomsection
     %\addcontentsline{toc}{chapter}{参考文献}
     \message{^^JjluPageNum jluReference \therealpage ^^J}
+    \bibliographystyle{\@jlu@referenceStyle}
     \bibliography{\@jlu@referenceFile}
 }
 

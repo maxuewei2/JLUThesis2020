@@ -79,7 +79,9 @@ Windows 用户可使用 inkscape 将字体转换为路径。
  jluthesis 原档存储于 google code，但已无法下载。<br/>
  此模板参考的 jluthesis 下载自 [dartall](https://github.com/dartall/jluthesis) 。<br/>
 - 生成双页封面的部分参考 [pkuthss](https://gitea.com/CasperVector/pkuthss/src/branch/master/doc/example/spine.tex) 和 [jiafeng5513/JLU_Dissertation](https://github.com/jiafeng5513/JLU_Dissertation)。
+- 参考文献样式使用 [gbt7714-bibtex-style](https://github.com/CTeX-org/gbt7714-bibtex-style)。
 - 2020.4.3 得到学院查重结果，两个查重平台重复率都在 1.X%，且主要集中在原创声明和授权声明的部分。其他人基本不会出现这种情况，大概是查重系统会自动识别论文格式，并忽略了摘要之前的内容，不知道为什么我的没有识别出来。对这一点不放心的或许可以使用工具将 LaTeX 生成的 PDF 与 Word 生成的 PDF 的一些页面组合，或者将原创声明、授权声明、致谢等改为不可选中不可复制 (即使用 `makeCrosscheckVersion.sh` 脚本)。
+
 
 ## 联系方式
 
