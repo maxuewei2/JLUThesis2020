@@ -34,10 +34,10 @@
 
 	举例如下
 	```
-    \usepackage[phdplain,ebook,twoSideCover,onlyCover]{jluthesis2020}
-    \usepackage[amd,hardcopy,twoSideCover]{jluthesis2020}
-    \usepackage[amd,hardcopy]{jluthesis2020}
-  ```
+\usepackage[phdplain,ebook,twoSideCover,onlyCover]{jluthesis2020}
+\usepackage[amd,hardcopy,twoSideCover]{jluthesis2020}
+\usepackage[amd,hardcopy]{jluthesis2020}
+	```
 
 - 单面印刷需设置 documentclass 为 oneside，双面印刷需设置 documentclass 为 twoside。
 - 建议安装 TeX Live 并使用 XeLaTeX 编译。<br/>
@@ -57,8 +57,8 @@
 - 查重时可能会把原创声明、授权声明、参考文献、致谢等包括进去，Linux 用户可使用 `makeCrosscheckVersion.sh` 制作查重版本，生成的 PDF 文档中原创声明、授权声明、作者简介、致谢四部分的文字被转换为路径，因此这四部分无法导出无法复制，也就不会参与查重。之所以没将参考文献也做成不可复制的，是觉得查重系统会从这里面提取引用。<br/>
 使用方法：
 	```bash
-    chmod a+x makeCrosscheckVersion.sh
-    ./makeCrosscheckVersion.sh example  # example为PDF文件名，不包括扩展名
+chmod a+x makeCrosscheckVersion.sh
+./makeCrosscheckVersion.sh example  # example为PDF文件名，不包括扩展名
 	```
 	Windows 用户可使用 inkscape 将字体转换为路径。
 
