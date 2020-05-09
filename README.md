@@ -12,41 +12,43 @@
 
 ## 使用
 
-可用选项有 `debug | ebook | hardcopy`，`amd | pmd | phdplain | phdfancy`，`nobox`， `manualSpine`， `onlyCover`， `twoSideCover`。
+- 选项
 
-|选项|作用|
-|:---:|---|
-|debug| 生成的PDF带框线，方便调试|
-|ebook| 带彩色文字的PDF|
-|hardcopy| 无彩色文字的PDF|
-|amd| 学术学位硕士使用|
-|pmd |专业学位硕士使用|
-|phdplain| 博士简装版使用|
-|phdfancy |博士精装版使用|
-|nobox | 输出的封面无框线和书脊|
-|manualSpine |手动输出书脊|
-|onlyCover | 仅输出封面页|
-|twoSideCover | 输出双页封面|
+	可用选项有 `debug|ebook|hardcopy`，`amd|pmd|phdplain|phdfancy`，`nobox`， `manualSpine`， `onlyCover`， `twoSideCover`。
 
- 默认为 `hardcopy,amd`，且`nobox=false, manualSpine=false, onlyCover=false, twoSideCover=false`
+	|选项|作用|
+  |:---:|---|
+  |debug| 生成的PDF带框线，方便调试|
+  |ebook| 带彩色文字的PDF|
+  |hardcopy| 无彩色文字的PDF|
+  |amd| 学术学位硕士使用|
+  |pmd |专业学位硕士使用|
+  |phdplain| 博士简装版使用|
+  |phdfancy |博士精装版使用|
+  |nobox | 输出的封面无框线和书脊|
+  |manualSpine |手动输出书脊|
+  |onlyCover | 仅输出封面页|
+  |twoSideCover | 输出双页封面|
 
-举例如下
-  ```
-      \usepackage[phdplain,ebook,twoSideCover,onlyCover]{jluthesis2020}
-      \usepackage[amd,hardcopy,twoSideCover]{jluthesis2020}
-      \usepackage[amd,hardcopy]{jluthesis2020}
+	默认为 `hardcopy,amd`，且 `nobox=false, manualSpine=false, onlyCover=false, twoSideCover=false`
+
+	举例如下
+	```
+    \usepackage[phdplain,ebook,twoSideCover,onlyCover]{jluthesis2020}
+    \usepackage[amd,hardcopy,twoSideCover]{jluthesis2020}
+    \usepackage[amd,hardcopy]{jluthesis2020}
   ```
 
 - 单面印刷需设置 documentclass 为 oneside，双面印刷需设置 documentclass 为 twoside。
 - 建议安装 TeX Live 并使用 XeLaTeX 编译。<br/>
   校内可在[吉大镜像站](http://mirrors.jlu.edu.cn/CTAN/systems/texlive/tlnet/install-tl.zip)下载 TeX Live。
-- 若缺少字体需自行下载安装。所需字体如下：
+- 若缺少字体需自行安装。所需字体如下：
 	- Adobe Song Std，Adobe Heiti Std，Adobe Kaiti Std，Adobe Fangsong Std
 	- Nimbus Roman，Nimbus Sans，Nimbus Mono
 	- Source Han Serif CN Heavy (思源宋体粗体)
 	- LiSu (隶书)
 
- 下载字体并放入系统字体文件夹后，Linux 用户可运行 `fc-cache` 刷新字体缓存。 可通过 ` fc-list : family | sort ` 查看已安装字体。 
+	安装字体后，Linux 用户可运行 `fc-cache` 刷新字体缓存，可通过 ` fc-list : family | sort ` 查看已安装字体。 
 
 - 若要使用此模板生成的 PDF 文档查重，需确保 PDF 能够正常复制出汉字。
 
@@ -54,11 +56,11 @@
 
 - 查重时可能会把原创声明、授权声明、参考文献、致谢等包括进去，Linux 用户可使用 `makeCrosscheckVersion.sh` 制作查重版本，生成的 PDF 文档中原创声明、授权声明、作者简介、致谢四部分的文字被转换为路径，因此这四部分无法导出无法复制，也就不会参与查重。之所以没将参考文献也做成不可复制的，是觉得查重系统会从这里面提取引用。<br/>
 使用方法：
-```bash
+	```bash
     chmod a+x makeCrosscheckVersion.sh
     ./makeCrosscheckVersion.sh example  # example为PDF文件名，不包括扩展名
-```
-Windows 用户可使用 inkscape 将字体转换为路径。
+	```
+	Windows 用户可使用 inkscape 将字体转换为路径。
 
 ## 免责声明
 
@@ -69,6 +71,7 @@ Windows 用户可使用 inkscape 将字体转换为路径。
 - [jiafeng5513/JLU_Dissertation](https://github.com/jiafeng5513/JLU_Dissertation)
 
 ## 后记
+
 - 此模板写于 2020 年 3 月 31 日，主要参考 jluthesis 及自己在写毕业论文时用 LaTeX 实现的 2020 年吉林大学研究生学位论文撰写及装帧规范。<br/>
 - 因个人 TeX 能力有限且我自己的实现看起来很乱，所以参考 jluthesis 进行模板化修改产生此模板。<br/>
 - 感谢实现 jluthesis 并开源的前辈 Zhang Yinhe。<br/>
