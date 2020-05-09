@@ -6,10 +6,12 @@
 
 ## 示例
 
-示例文档见 [example_files](https://github.com/maxuewei2/JLUThesisLaTeX/tree/master/example_files) 下各文件。
+示例文档见 [example_files](example_files) 下各文件。
 
-使用示例见 [example.tex](https://github.com/maxuewei2/JLUThesisLaTeX/blob/master/example.tex)。
+使用示例见 [example.tex](example.tex)。
+
 ## 使用
+
 可用选项有 `debug | ebook | hardcopy`，`amd | pmd | phdplain | phdfancy`，`nobox`， `manualSpine`， `onlyCover`， `twoSideCover`。
 
 |选项|作用|
@@ -35,22 +37,16 @@
       \usepackage[amd,hardcopy]{jluthesis2020}
   ```
 
+- 单面印刷需设置 documentclass 为 oneside，双面印刷需设置 documentclass 为 twoside。
 - 建议安装 TeX Live 并使用 XeLaTeX 编译。<br/>
-  校内可在[吉大 CTAN 镜像站](http://mirrors.jlu.edu.cn/)下载 TeX Live。
-
+  校内可在[吉大镜像站](http://mirrors.jlu.edu.cn/CTAN/systems/texlive/tlnet/install-tl.zip)下载 TeX Live。
 - 若缺少字体需自行下载安装。所需字体如下：
-	- Adobe Song Std
-	- Adobe Heiti Std
-	- Adobe Kaiti Std
-	- Adobe Fangsong Std
-	- LiSu
+	- Adobe Song Std，Adobe Heiti Std，Adobe Kaiti Std，Adobe Fangsong Std
+	- Nimbus Roman，Nimbus Sans，Nimbus Mono
 	- Source Han Serif CN Heavy (思源宋体粗体)
-	- Nimbus Roman No9 L
-	- Nimbus Sans L
-	- Nimbus Mono L
+	- LiSu (隶书)
 
- 下载字体并放入系统字体文件夹后，运行 `fc-cache` 刷新字体缓存。<br/>
-  Linux 用户可通过 ` fc-list : family | sort ` 查看已安装字体。 
+ 下载字体并放入系统字体文件夹后，Linux 用户可运行 `fc-cache` 刷新字体缓存。 可通过 ` fc-list : family | sort ` 查看已安装字体。 
 
 - 若要使用此模板生成的 PDF 文档查重，需确保 PDF 能够正常复制出汉字。
 
@@ -77,10 +73,11 @@ Windows 用户可使用 inkscape 将字体转换为路径。
 - 因个人 TeX 能力有限且我自己的实现看起来很乱，所以参考 jluthesis 进行模板化修改产生此模板。<br/>
 - 感谢实现 jluthesis 并开源的前辈 Zhang Yinhe。<br/>
  jluthesis 原档存储于 google code，但已无法下载。<br/>
- 此模板参考的 jluthesis 下载自 [dartall](https://github.com/dartall/jluthesis) 。<br/>
+此模板参考的 jluthesis 下载自 [dartall](https://github.com/dartall/jluthesis) 。<br/>
 - 生成双页封面的部分参考 [pkuthss](https://gitea.com/CasperVector/pkuthss/src/branch/master/doc/example/spine.tex) 和 [jiafeng5513/JLU_Dissertation](https://github.com/jiafeng5513/JLU_Dissertation)。
 - 参考文献样式使用 [gbt7714-bibtex-style](https://github.com/CTeX-org/gbt7714-bibtex-style)。
 - 2020.4.3 得到学院查重结果，两个查重平台重复率都在 1.X%，且主要集中在原创声明和授权声明的部分。其他人基本不会出现这种情况，大概是查重系统会自动识别论文格式，并忽略了摘要之前的内容，不知道为什么我的没有识别出来。对这一点不放心的或许可以使用工具将 LaTeX 生成的 PDF 与 Word 生成的 PDF 的一些页面组合，或者将原创声明、授权声明、致谢等改为不可选中不可复制 (即使用 `makeCrosscheckVersion.sh` 脚本)。
+- 思源宋体粗体可能看起来与 MS Word 中的粗体差别较大。若以假粗体实现粗体来生成的文档大概更接近 MS Word 的感觉，但似乎易出现奇奇怪怪的问题 (如部分字无法选中、该加粗的字没有加粗、不该加粗的字被加粗了等)，不过好在只有封面、摘要等少数几个地方需要使用粗体。使用假粗体需在 documentclass 中设置 AutoFakeBold， 在 jluthesis2020 中设置 manualSpine，并需重置 CJKmainfont，具体见 [amd-ebook-oneside-假粗体.tex](example_files/amd-ebook-oneside-假粗体.tex)。
 
 
 ## 联系方式

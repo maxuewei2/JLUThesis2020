@@ -1,4 +1,4 @@
-\documentclass[twoside,a4paper,12pt]{book}%,AutoFakeBold,twoside,openright,
+\documentclass[oneside,a4paper,12pt,AutoFakeBold]{book}%,AutoFakeBold,twoside,openright,
 % 可用选项有 debug|ebook|hardcopy, amd|pmd|phdplain|phdfancy, nobox, manualSpine, onlyCover, twoSideCover.
 % debug 生成的PDF带框线，方便调试
 % ebook 带彩色文字的PDF
@@ -17,7 +17,7 @@
 % 选项使用举例如下
 %\usepackage[phdplain,ebook,twoSideCover,onlyCover]{jluthesis2020}%
 %\usepackage[amd,hardcopy,twoSideCover]{jluthesis2020}%
-\usepackage[amd,hardcopy]{jluthesis2020}%
+\usepackage[amd,ebook,manualSpine]{jluthesis2020}%
 
 % 用于算法注释
 \usepackage{algcompatible}
@@ -29,6 +29,8 @@
 % 用于排版代码
 \usepackage{listings}
 \usepackage{hyperxmp}
+\setCJKmainfont{Adobe Song Std}
+\setCJKfamilyfont{song}{Adobe Song Std}
 
 \graphicspath{{figures/}}
 
@@ -47,31 +49,31 @@
 % 但如果仅有中文或英文都比较简单，如
 % \jluCSpineTitle{吉林大学学位论文模版示例} % 仅中文的书脊标题
 % \jluCSpineTitle{\jluPrintSpine{Sample Typesetting for {\jluthesisVersion}}} % 仅英文的书脊标题
-\jluCSpineTitle{\jluPrintSpine{\jluPrintSpineChinese{吉林大学学位论文模版}{\jluthesisVersion}\jluPrintSpineChinese{示例}}} % 中英混杂的书脊标题
+% \jluCSpineTitle{\jluPrintSpine{\jluPrintSpineChinese{吉林大学学位论文模版}{\jluthesisVersion}\jluPrintSpineChinese{示例}}} % 中英混杂的书脊标题
 
 \jluSpineHorizontalPosition{1.45} % 书脊的水平位置，修改可使书脊水平平移
 
 % 当在选项中指定手动输出书脊时,可用下列命令手动输出书脊进行微调
-% \jluManualSpine{
+\jluManualSpine{
 %   % for oneSideCover
-%	\jluPrintVerticallyOneByOne{2.5cm}{-10em}{吉林大学学位论文模板}{0.2in}{}
-%	\jluPrintVerticallySentence{2.5cm}{-26.5em}{\rotatebox{-90}{\jluthesisVersion}}
-%	\jluPrintVerticallyOneByOne{2.5cm}{-30em}{示例}{0.2in}{}
-%	\jluPrintVerticallyOneByOne{2.45cm}{-38em}{ \Author }{0.2in}{\bfseries}
-%	\jluPrintVerticallyOneByOne{2.5cm}{-47em}{ 吉林大学 }{0.2in}{\kai}
+	\jluPrintVerticallyOneByOne{2.5cm}{-10em}{吉林大学学位论文模板}{0.2in}{}
+	\jluPrintVerticallySentence{2.5cm}{-26.5em}{\rotatebox{-90}{\jluthesisVersion}}
+	\jluPrintVerticallyOneByOne{2.5cm}{-30em}{示例}{0.2in}{}
+	\jluPrintVerticallyOneByOne{2.45cm}{-38em}{ \Author }{0.2in}{\bfseries}
+	\jluPrintVerticallyOneByOne{2.5cm}{-47em}{ 吉林大学 }{0.2in}{\kai}
 %   % for twoSideCover    
 %	\jluPrintVerticallyOneByOne{23cm}{-10em}{吉林大学学位论文模板}{0.2in}{}
 %	\jluPrintVerticallySentence{23cm}{-26.5em}{\rotatebox{-90}{\jluthesisVersion}}
 %	\jluPrintVerticallyOneByOne{23cm}{-30em}{示例}{0.2in}{}
 %	\jluPrintVerticallyOneByOne{23cm}{-38em}{ \Author }{0.2in}{\bfseries}
 %	\jluPrintVerticallyOneByOne{23cm}{-47em}{ 吉林大学 }{0.2in}{\kai}
-% } % jluManualSpine
+} % jluManualSpine
 \jluETitle{Sample Typesetting for {\jluthesisVersion}}
 \jluCSubject{计算机应用技术}   % 封面的『专业』或『类别』
 \jluCInterest{数据挖掘}  % 封面的『研究方向』或『领域（方向）』，博士精装版扉页的『研究方向』
 \jluCSubjectScd{计算机应用技术}  % 扉页的『专业名称』或『领域（方向）』
 \jluCSubjectTrd{计算机应用技术}  % 学位论文授权说明中的『学科专业』
-\jluCDegree{工学硕士}  % 扉页的『学位类别』或『类别』
+\jluCDegree{工学硕士} % 扉页的『学位类别』或『类别』
 \jluCCollege{计算机科学与技术学院}
 \jluCollegeNumber{10183}
 \jluCUniversity{吉林大学}

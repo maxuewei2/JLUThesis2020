@@ -10,6 +10,24 @@ compile(){
     xelatex tmp.tex
 }
 
+# 以假粗体实现粗体生成的文档更接近 MS Word 的感觉，但似乎可能出现奇奇怪怪的问题(如部分字无法选中、该加粗的字没有加粗、不该加粗的字加粗了等)
+# STSong， SimSun， NSimSun， SimSun-ExtB， Adobe Song Std
+# documentclass 需设置 AutoFakeBold， jluthesis2020 需设置 manualSpine， 需重置CJKmainfont
+sed 's/\documentclass\[.*\]/\documentclass\[oneside,a4paper,12pt,AutoFakeBold\]/' example.tex | \
+sed 's/^\\usepackage\[.*\]{jluthesis2020}/\\usepackage\[amd,ebook,manualSpine\]{jluthesis2020}/' | \
+sed 's/\\usepackage{hyperxmp}/\\usepackage{hyperxmp}\n\\setCJKmainfont{Adobe Song Std}\n\\setCJKfamilyfont{song}{Adobe Song Std}/' |\
+sed 's/\\jluCDegree{.*} /\\jluCDegree{工学硕士}/' | \
+sed 's/^\\jluCSpineTitle{\\jluPrintSpine{\\jluPrintSpineChinese{/% \\jluCSpineTitle{\\jluPrintSpine{\\jluPrintSpineChinese{/' |\
+sed 's/% \\jluManualSpine{/\\jluManualSpine{/' |\
+sed -z "$(echo 's/%[ \t]*\\jluPrintVerticallyOneByOne{/\t\\jluPrintVerticallyOneByOne{/'{4..1}\;)" |\
+sed -z 's/%[ \t]*\\jluPrintVerticallySentence{/\t\\jluPrintVerticallySentence{/'  |\
+sed -z 's/%[ \t]*} % jluManualSpine/} % jluManualSpine/' \
+> tmp.tex
+compile
+mv tmp.pdf $tmpdir/amd-ebook-oneside-假粗体.pdf
+mv tmp.tex $tmpdir/amd-ebook-oneside-假粗体.tex
+
+
 sed 's/\documentclass\[.*\]/\documentclass\[oneside,a4paper,12pt\]/' example.tex | \
 sed 's/^\\usepackage\[.*\]{jluthesis2020}/\\usepackage\[amd,ebook\]{jluthesis2020}/'|\
 sed 's/\\jluCDegree{.*} /\\jluCDegree{工学硕士}/'> tmp.tex
