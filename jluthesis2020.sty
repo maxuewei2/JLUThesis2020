@@ -389,7 +389,7 @@
 
 
 \setCJKmainfont[BoldFont=Source Han Serif CN Heavy]{Adobe Song Std}   % 中文缺省字体
-\setCJKsansfont{Adobe Heiti Std}    % 中文无衬线字体
+\setCJKsansfont[BoldFont=Source Han Sans CN Heavy]{Source Han Sans CN} % 中文无衬线字体Adobe Heiti Std
 \setCJKmonofont{Adobe Kaiti Std}    % 中文数学字体
 
 % \setmainfont{TeX Gyre Pagella}    % 英文缺省字体：替代 Times New Roman
@@ -407,7 +407,7 @@
 % define \li (隶书) \hei (黑体) \fs (仿宋)
 \setCJKfamilyfont{lishu}{LiSu}
 \newcommand*{\li}{\CJKfamily{lishu}}
-\setCJKfamilyfont{heiti}{Adobe Heiti Std} 
+\setCJKfamilyfont{heiti}{Source Han Sans CN} % Adobe Heiti Std
 \newcommand*{\hei}{\CJKfamily{heiti}}
 \setCJKfamilyfont{fs}{Adobe Fangsong Std} 
 \newcommand*{\fs}{\CJKfamily{fs}}
@@ -466,39 +466,39 @@
     \setlength{\parindent}{10.04pt plus 1pt minus 0pt}} % 八号字   5bp
 
 
-% redefine following font size commands to accompany Chinese
-\let\@normalsize\normalsize
-\def\normalsize{\@normalsize \xiaosi}
-\let\@samll\small
-\def\samll{\@samll \wuhao}
-\let\@footnotesize\footnotesize
-\def\footnotesize{\@footnotesize \xiaowu}
-\let\scriptsize\liuhao
-\let\tiny\xiaoliu
-\let\large\sihao
-\let\Large\xiaosan
-\let\LARGE\sanhao
-\let\huge\xiaoer
-\let\Huge\erhao
-
-% math font size declartion (cf. ctex.sty)
-% \DeclareMathSizes{<t-size>}{<mt-size>}{<s-size>}{<ss-size>}
-\DeclareMathSizes{5.02}{5.02}{5}{5}
-\DeclareMathSizes{5.52}{5.52}{5}{5}
-\DeclareMathSizes{6.52}{6.52}{5}{5}
-\DeclareMathSizes{7.53}{7.53}{5}{5}
-\DeclareMathSizes{9.03}{9.03}{6}{5}
-\DeclareMathSizes{10.54}{10.54}{7}{5}
-\DeclareMathSizes{12.05}{12.05}{8}{6}
-\DeclareMathSizes{14.05}{14.05}{10.54}{7.53}
-\DeclareMathSizes{15.06}{15.06}{12.05}{9.03}
-\DeclareMathSizes{16.06}{16.06}{14.05}{10.54}
-\DeclareMathSizes{18.07}{18.07}{15.06}{12.05}
-\DeclareMathSizes{22.08}{22.08}{16.06}{14.05}
-\DeclareMathSizes{24.09}{24.09}{18.07}{15.06}
-\DeclareMathSizes{26.10}{26.10}{22.08}{16.06}
-\DeclareMathSizes{36.14}{36.14}{24.09}{18.07}
-\DeclareMathSizes{42.16}{42.16}{26.10}{22.08}
+%% redefine following font size commands to accompany Chinese
+%\let\@normalsize\normalsize
+%\def\normalsize{\@normalsize \xiaosi}
+%\let\@samll\small
+%\def\samll{\@samll \wuhao}
+%\let\@footnotesize\footnotesize
+%\def\footnotesize{\@footnotesize \xiaowu}
+%\let\scriptsize\liuhao
+%\let\tiny\xiaoliu
+%\let\large\sihao
+%\let\Large\xiaosan
+%\let\LARGE\sanhao
+%\let\huge\xiaoer
+%\let\Huge\erhao
+%
+%% math font size declartion (cf. ctex.sty)
+%% \DeclareMathSizes{<t-size>}{<mt-size>}{<s-size>}{<ss-size>}
+%\DeclareMathSizes{5.02}{5.02}{5}{5}
+%\DeclareMathSizes{5.52}{5.52}{5}{5}
+%\DeclareMathSizes{6.52}{6.52}{5}{5}
+%\DeclareMathSizes{7.53}{7.53}{5}{5}
+%\DeclareMathSizes{9.03}{9.03}{6}{5}
+%\DeclareMathSizes{10.54}{10.54}{7}{5}
+%\DeclareMathSizes{12.05}{12.05}{8}{6}
+%\DeclareMathSizes{14.05}{14.05}{10.54}{7.53}
+%\DeclareMathSizes{15.06}{15.06}{12.05}{9.03}
+%\DeclareMathSizes{16.06}{16.06}{14.05}{10.54}
+%\DeclareMathSizes{18.07}{18.07}{15.06}{12.05}
+%\DeclareMathSizes{22.08}{22.08}{16.06}{14.05}
+%\DeclareMathSizes{24.09}{24.09}{18.07}{15.06}
+%\DeclareMathSizes{26.10}{26.10}{22.08}{16.06}
+%\DeclareMathSizes{36.14}{36.14}{24.09}{18.07}
+%\DeclareMathSizes{42.16}{42.16}{26.10}{22.08}
 
 % 首行缩进：需根据正文字号微调
 %\setlength{\parindent}{24pt plus 1pt minus 0pt}
