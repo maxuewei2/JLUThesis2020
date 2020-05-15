@@ -230,6 +230,14 @@
 \def\jluStudentNumber#1{\def\@jlu@studentNumber{#1}}
 \def\@jlu@studentNumber{}
 
+% 作者签名
+\def\jluAuthorSignature#1{\def\@jlu@authorSignature{#1}}
+\def\@jlu@authorSignature{}
+
+% 导师签名
+\def\jluSupervisorSignature#1{\def\@jlu@supervisorSignature{#1}}
+\def\@jlu@supervisorSignature{}
+
 % 在校时间，没用到
 %\def\jluStudyPeriod#1{\def\@jlu@studyPeriod{#1}}
 %\def\@jlu@studyPeriod{}
@@ -1207,7 +1215,7 @@
         做出重要贡献的个人和集体，均已在文中以明确方式标明。本人完全意识
         到本声明的法律结果由本人承担。\\*[0.5cm]
         
-        \hspace{5cm}学位论文作者签名：
+        \hspace{5cm}学位论文作者签名：\@jlu@authorSignature
 
         \hspace{5cm}日期：
             \@jlu@ifDateExists{\@jlu@originalStatementYear}{2}年
@@ -1257,7 +1265,11 @@
 
         \indent 论文题目：\@jlu@cTitle 
         
-        \indent 作者签名：\qquad\qquad\qquad\qquad\qquad\quad 指导教师签名：\\
+        \indent 作者签名：
+        \makebox[4cm][c]{\@jlu@authorSignature} 
+        指导教师签名：
+        \makebox[4cm][c]{\@jlu@supervisorSignature}  
+        \\
         
         \hspace*{7cm} \@jlu@ifDateExists{\@jlu@contributionStatementYear}{2}年\@jlu@ifDateExists{\@jlu@contributionStatementMonth}{1}月\@jlu@ifDateExists{\@jlu@contributionStatementDay}{1}日
 
