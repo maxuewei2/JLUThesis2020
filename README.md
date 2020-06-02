@@ -30,6 +30,7 @@
   |onlyCover | 仅输出封面页|
   |twoSideCover | 输出双页封面|
   |noBlankPages  | 去掉空白页，主要用于上传到图书馆学位论文系统|
+	
 	默认为 `hardcopy,amd`，且 `nobox=false, manualSpine=false, onlyCover=false, twoSideCover=false, noBlankPages=false`
 
 	举例如下
