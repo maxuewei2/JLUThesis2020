@@ -173,13 +173,14 @@ Conventionally, a modern computer consists of at least one processing element, t
 \jluMakeCover
 
 
+\titleformat{\chapter}{\centering\sffamily\mdseries\sanhao}{\CJKchaptername}{1em}{}
+\titlespacing{\chapter}{0pt}{8pt}{16pt}
 
 \pagenumbering{Roman} 
 \tableofcontents
 
 
 \cleardoublepage
-\pagenumbering{Roman} 
 \pdfbookmark{插图目录}{lof}
 \label{lof}
 \listoffigures
@@ -190,7 +191,10 @@ Conventionally, a modern computer consists of at least one processing element, t
 \label{lot}
 \listoftables
 
+\titleformat{\chapter}{\centering\rmfamily\bfseries\sanhao}{\CJKchaptername}{1em}{}
+\titlespacing{\chapter}{0pt}{8pt}{16pt}
 
+\clearpage
 \pagenumbering{arabic}
 
 

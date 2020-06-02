@@ -12,7 +12,7 @@
 % 使用 XeTeX 系统处理源文件，方便直接使用系统的 truetype 或 opentype 字体
 % 参考了 XJTUthesis.cls, HIT-pluto-PhD, 
 %
-% 可用选项有 debug|ebook|hardcopy, amd|pmd|phdplain|phdfancy, nobox, manualSpine, onlyCover, twoSideCover.
+% 可用选项有 debug|ebook|hardcopy, amd|pmd|phdplain|phdfancy, nobox, manualSpine, onlyCover, twoSideCover, noBlankPages.
 % debug 生成的PDF带框线，方便调试
 % ebook 带彩色文字的PDF
 % hardcopy 无彩色文字的PDF
@@ -24,7 +24,8 @@
 % manualSpine 手动输出书脊,需配合\jluManualSpine命令
 % onlyCover 仅输出封面页
 % twoSideCover 输出双页封面
-% 默认为 hardcopy,amd，且nobox=false，manualSpine=false，onlyCover=false，twoSideCover=false
+% noBlankPages 去掉空白页，主要用于上传到图书馆学位论文系统
+% 默认为 hardcopy,amd，且nobox=false，manualSpine=false，onlyCover=false，twoSideCover=false, noBlankPages=false
 % 双面印刷需在documentclass选项中声明twoside
 % 单面印刷需在documentclass选项中声明oneside
 % 选项使用举例如下
@@ -72,6 +73,14 @@
 \@jlu@onlyCoverfalse
 \DeclareOption{onlyCover}{\@jlu@onlyCovertrue}
 
+\newif\if@jlu@noBlankPages
+\@jlu@noBlankPagesfalse
+\DeclareOption{noBlankPages}{\@jlu@noBlankPagestrue}
+
+
+
+
+
 \newif\if@jlu@manualPrintSpine
 \@jlu@manualPrintSpinefalse
 \DeclareOption{manualSpine}{\@jlu@manualPrintSpinetrue}
@@ -88,6 +97,7 @@
 \ExecuteOptions{hardcopy,amd}  % 默认选项
 \ProcessOptions
 
+ 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 吉林大学硕士论文一些格式设定，尽量不要修改，除非学校格式变化了
@@ -350,6 +360,15 @@
 
 \@jlu@setGeometry
 
+
+% 子图
+\RequirePackage{subfigure}
+%\RequirePackage[subfigure]{tocloft}
+%\renewcommand\cftloftitlefont{\sffamily\mdseries}
+%\renewcommand\cftlottitlefont{\sffamily\mdseries}
+
+
+
 \RequirePackage[style=pdf,useregional=numeric]{datetime2}
 \RequirePackage{hyperref}
 \newcommand{\@jlu@setHref}{
@@ -387,6 +406,13 @@
     \fi
 \fi
 
+
+\if@jlu@noBlankPages
+    \renewcommand\cleardoublepage{%
+        \clearpage
+        \ifodd\value{page}\else\stepcounter{page}\fi
+    }
+\fi
 
 
 %\RequirePackage{ctex}
@@ -556,8 +582,7 @@
 % 使满足『图的位置应该在相关文字说明之后，随文排』要求
 % 不过这样真的不太好看
 \RequirePackage{flafter}
-% 子图
-\RequirePackage{subfigure}
+
 
 % 图题使用悬挂格式
 \RequirePackage[format=hang,font=normalsize]{caption}
@@ -704,7 +729,7 @@
     \else
         \@restonecolfalse
     \fi
-    \chapter*{\contentsname}%
+    \chapter*{\sffamily\mdseries\contentsname}%
     % 目录奇偶页页眉皆为“目 录”
     \markboth{\contentsname}{\contentsname}%
     %
@@ -721,16 +746,16 @@
 %   sep：标题号与标题文字之间距离，before: 标题文字之前运行的代码
 % \titlespacing{command}{<leftskip>}{<beforeskip>}{<afterskip>}
 %   leftskip：左缩进；beforeskip：标题前垂直空白；afterskip：标题与正文间垂直空白
-\titleformat{\chapter}{\centering \sffamily \sanhao}{\CJKchaptername}{1em}{}
+\titleformat{\chapter}{\centering\rmfamily\bfseries\sanhao}{\CJKchaptername}{1em}{}
 \titlespacing{\chapter}{0pt}{8pt}{16pt}
 
-\titleformat{\section}{\hei\xiaosan}{\thesection}{0.5em}{}
+\titleformat{\section}{\rmfamily\bfseries\xiaosan}{\thesection}{0.5em}{}
 \titlespacing{\section}{0pt}{13pt}{13pt}
 
-\titleformat{\subsection}{\hei\sihao}{\thesubsection}{0.5em}{}
+\titleformat{\subsection}{\rmfamily\bfseries\sihao}{\thesubsection}{0.5em}{}
 \titlespacing{\subsection}{0pt}{8pt}{7pt}
 
-\titleformat{\subsubsection}{\hei\xiaosi}{\thesubsubsection}{0.5em}{}
+\titleformat{\subsubsection}{\rmfamily\bfseries\xiaosi}{\thesubsubsection}{0.5em}{}
 \titlespacing{\subsubsection}{0pt}{3pt}{2pt}{}
 
 
@@ -1182,7 +1207,7 @@
         \else 
             \hspace{5cm} 
         \fi
-        \wuhao \song
+        \wuhao \rmfamily
         \@jlu@committeeTable
     \else
         \vspace{4.0cm}   
@@ -1269,11 +1294,7 @@
 
         \indent 论文题目：\@jlu@cTitle 
         
-        \indent 作者签名：
-        \makebox(0,0)[c]{\@jlu@authorSignatureTwo}\makebox[4cm][c]{} 
-        指导教师签名：
-        \makebox(0,0)[c]{\@jlu@supervisorSignature}  
-        \\
+        \indent 作者签名：\makebox(0,0)[c]{\@jlu@authorSignatureTwo}\hphantom{一二三四五六七八}指导教师签名：\makebox(0,0)[c]{\@jlu@supervisorSignature}\\
         
         \hspace*{7cm} \@jlu@ifDateExists{\@jlu@contributionStatementYear}{2}年\@jlu@ifDateExists{\@jlu@contributionStatementMonth}{1}月\@jlu@ifDateExists{\@jlu@contributionStatementDay}{1}日
 
@@ -1308,8 +1329,8 @@
     \vspace{2.0em}
 
     {
-        \rmfamily \bfseries \xiaosi\noindent 
-        关键词：\\ \indent \xiaosi \song \mdseries \@jlu@cKeywords
+        \rmfamily\xiaosi\noindent 
+        \textbf{关键词：}\\\hphantom{啊啊}\@jlu@cKeywords
     }
 }  % end define \thesissummary
 
@@ -1332,8 +1353,8 @@
     \vspace{2.0em}
 
     {
-        \rmfamily \bfseries \xiaosi\noindent 
-        Keywords: \\ \indent \xiaosi \song \mdseries \@jlu@eKeywords
+        \rmfamily\xiaosi\noindent 
+        \textbf{Keywords:}\\\hphantom{啊啊}\@jlu@eKeywords
     }
 }  % end define \thesissummary
 

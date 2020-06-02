@@ -14,7 +14,7 @@
 
 - 选项
 
-	可用选项有 `debug|ebook|hardcopy`，`amd|pmd|phdplain|phdfancy`，`nobox`， `manualSpine`， `onlyCover`， `twoSideCover`。
+	可用选项有 `debug|ebook|hardcopy`，`amd|pmd|phdplain|phdfancy`，`nobox`， `manualSpine`， `onlyCover`， `twoSideCover`,  `noBlankPages`。
 
 	|选项|作用|
   |:---:|---|
@@ -29,8 +29,8 @@
   |manualSpine |手动输出书脊|
   |onlyCover | 仅输出封面页|
   |twoSideCover | 输出双页封面|
-
-	默认为 `hardcopy,amd`，且 `nobox=false, manualSpine=false, onlyCover=false, twoSideCover=false`
+  |noBlankPages  | 去掉空白页，主要用于上传到图书馆学位论文系统|
+	默认为 `hardcopy,amd`，且 `nobox=false, manualSpine=false, onlyCover=false, twoSideCover=false, noBlankPages=false`
 
 	举例如下
 	```
@@ -45,7 +45,7 @@
 - 若缺少字体需自行安装。所需字体如下：
 	- Adobe Song Std，Adobe Heiti Std，Adobe Kaiti Std，Adobe Fangsong Std
 	- Nimbus Roman，Nimbus Sans，Nimbus Mono
-	- Source Han Serif CN Heavy (思源宋体粗体)
+	- Source Han Sans CN，Source Han Sans CN Heavy (思源黑体粗体)，Source Han Serif CN Heavy (思源宋体粗体)
 	- LiSu (隶书)
 
 	安装字体后，Linux 用户可运行 `fc-cache` 刷新字体缓存，可通过 ` fc-list : family | sort ` 查看已安装字体。 

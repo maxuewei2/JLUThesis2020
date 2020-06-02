@@ -64,6 +64,12 @@ sed 's/\\jluCDegree{.*} /\\jluCDegree{工学硕士}/'> tmp.tex
 compile
 mv tmp.pdf $tmpdir/pmd-hardcopy-twoside.pdf
 
+sed 's/\documentclass\[.*\]/\documentclass\[twoside,a4paper,12pt\]/' example.tex | \
+sed 's/^\\usepackage\[.*\]{jluthesis2020}/\\usepackage\[pmd,hardcopy,noBlankPages\]{jluthesis2020}/'|\
+sed 's/\\jluCDegree{.*} /\\jluCDegree{工学硕士}/'> tmp.tex
+compile
+mv tmp.pdf $tmpdir/pmd-hardcopy-twoside-noBlankPages.pdf
+
 sed 's/\documentclass\[.*\]/\documentclass\[oneside,a4paper,12pt\]/' example.tex | \
 sed 's/^\\usepackage\[.*\]{jluthesis2020}/\\usepackage\[amd,hardcopy\]{jluthesis2020}/'|\
 sed 's/\\jluCDegree{.*} /\\jluCDegree{工学硕士}/'> tmp.tex

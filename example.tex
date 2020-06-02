@@ -1,5 +1,5 @@
-\documentclass[oneside,a4paper,12pt]{book}%,AutoFakeBold,twoside,openright,
-% 可用选项有 debug|ebook|hardcopy, amd|pmd|phdplain|phdfancy, nobox, manualSpine, onlyCover, twoSideCover.
+\documentclass[twoside,a4paper,12pt]{book}%,AutoFakeBold,twoside,openright,
+% 可用选项有 debug|ebook|hardcopy, amd|pmd|phdplain|phdfancy, nobox, manualSpine, onlyCover, twoSideCover, noBlankPages.
 % debug 生成的PDF带框线，方便调试
 % ebook 带彩色文字的PDF
 % hardcopy 无彩色文字的PDF
@@ -11,13 +11,14 @@
 % manualSpine 手动输出书脊,需配合\jluManualSpine命令
 % onlyCover 仅输出封面页
 % twoSideCover 输出双页封面
-% 默认为 hardcopy,amd，且nobox=false，manualSpine=false，onlyCover=false，twoSideCover=false
+% noBlankPages 去掉空白页，主要用于上传到图书馆学位论文系统
+% 默认为 hardcopy,amd，且nobox=false，manualSpine=false，onlyCover=false，twoSideCover=false， noBlankPages=false
 % 双面印刷需在documentclass选项中声明twoside
 % 单面印刷需在documentclass选项中声明oneside
 % 选项使用举例如下
 %\usepackage[phdplain,ebook,twoSideCover,onlyCover]{jluthesis2020}%
 %\usepackage[amd,hardcopy,twoSideCover]{jluthesis2020}%
-\usepackage[amd,hardcopy]{jluthesis2020}%
+\usepackage[amd,hardcopy,noBlankPages]{jluthesis2020}%
 
 % 用于算法注释
 \usepackage{algcompatible}
@@ -171,13 +172,14 @@ Conventionally, a modern computer consists of at least one processing element, t
 \jluMakeCover
 
 
+\titleformat{\chapter}{\centering\sffamily\mdseries\sanhao}{\CJKchaptername}{1em}{}
+\titlespacing{\chapter}{0pt}{8pt}{16pt}
 
 \pagenumbering{Roman} 
 \tableofcontents
 
 
 \cleardoublepage
-\pagenumbering{Roman} 
 \pdfbookmark{插图目录}{lof}
 \label{lof}
 \listoffigures
@@ -188,7 +190,10 @@ Conventionally, a modern computer consists of at least one processing element, t
 \label{lot}
 \listoftables
 
+\titleformat{\chapter}{\centering\rmfamily\bfseries\sanhao}{\CJKchaptername}{1em}{}
+\titlespacing{\chapter}{0pt}{8pt}{16pt}
 
+\clearpage
 \pagenumbering{arabic}
 
 
