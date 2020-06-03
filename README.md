@@ -1,6 +1,6 @@
-# JLUThesisLaTeX
+# JLUThesis2020
 
-吉林大学学位论文 LaTeX 模板。
+吉林大学学位论文 LaTeX 模板——jluthesis2020。
 
 可生成学硕、专硕、博士简装、博士精装 PDF 论文，可生成单面或双面印刷版本，可生成单页或双页封面。
 
@@ -69,7 +69,8 @@
 
 ## 同类解决方案
 
-- [jiafeng5513/JLU_Dissertation](https://github.com/jiafeng5513/JLU_Dissertation)
+- 本科毕业论文：[x86vk/JLU-CCST-Thesis](https://github.com/x86vk/JLU-CCST-Thesis)
+- 硕士毕业论文：[jiafeng5513/JLU_Dissertation](https://github.com/jiafeng5513/JLU_Dissertation)
 
 ## 后记
 
