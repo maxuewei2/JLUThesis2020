@@ -408,6 +408,7 @@
 
 
 \if@jlu@noBlankPages
+    % https://tex.stackexchange.com/a/248879
     \renewcommand\cleardoublepage{%
         \clearpage
         \ifodd\value{page}\else\stepcounter{page}\fi
@@ -914,7 +915,8 @@
         \centering{
             \begin{minipage}[b][\textheight][b]{\miniwidth}
                 \vspace*{\fill}\par
-                \centerline{\includegraphics[width = \logowidth]{logo.png}}\par
+                %\centerline{\includegraphics[width = \logowidth]{logo.png}}\par
+                \hspace{\logowidth}
                 \vspace*{\fill}\par
             \end{minipage}
             \hspace{\colpad}
@@ -1007,12 +1009,18 @@
   \end{tikzpicture}
 }
 
+
+\newlength{\@jlu@widthYear}
+\newlength{\@jlu@widthDay}
 \def\@jlu@yearblank{\qquad\quad}
 \def\@jlu@dayblank{\qquad}
+\settowidth{\@jlu@widthYear}{\@jlu@yearblank}
+\settowidth{\@jlu@widthDay}{\@jlu@dayblank}
+
 % 若日期#1有定义则#2否则#3
 \newcommand{\@jlu@ifDateExistsElse}[3]{\ifthenelse{\equal{#1}{}}{#3}{#2}}
 % 若日期#1有定义则输出#1否则依据#2输出对应空白
-\newcommand{\@jlu@ifDateExists}[2]{\@jlu@ifDateExistsElse{#1}{\hspace{4mm}{#1}\hspace{4mm}}{\ifthenelse{\equal{#2}{2}}{\@jlu@yearblank}{\@jlu@dayblank}}}
+\newcommand{\@jlu@ifDateExists}[2]{\settowidth{\@jlu@widthYear}{\@jlu@yearblank}\settowidth{\@jlu@widthDay}{\@jlu@dayblank}\@jlu@ifDateExistsElse{#1}{\ifthenelse{\equal{#2}{2}}{\makebox[\@jlu@widthYear][c]{#1}}{\makebox[\@jlu@widthDay][c]{#1}}}{\ifthenelse{\equal{#2}{2}}{\@jlu@yearblank}{\@jlu@dayblank}}}
 
 % 绝对位置输出文本,用于输出书脊
 \RequirePackage[absolute,overlay]{textpos}
@@ -1170,8 +1178,6 @@
     {
         \sihao\setlength{\parindent}{5em}
         \settowidth{\@jlu@widthI}{\@jlu@subjectLabelScd ：}
-        \settowidth{\@jlu@widthJ}{\@jlu@yearblank}
-        \settowidth{\@jlu@widthK}{\@jlu@dayblank}    
         \noindent\hphantom{空空}
         \parbox{\textwidth}{
             \makebox[\@jlu@widthI][s]{作者姓名：}\@jlu@cAuthor\\
@@ -1188,14 +1194,8 @@
                 \makebox[\@jlu@widthI][s]{答辩日期：}\@jlu@ifDateExists{\@jlu@defenseYear}{2}年\@jlu@ifDateExists{\@jlu@defenseMonth}{1}月\@jlu@ifDateExists{\@jlu@defenseDay}{1}日
             }
             \else{
-                论文答辩日期：
-                \@jlu@ifDateExistsElse{\@jlu@defenseYear}{\makebox[\@jlu@widthJ][c]{\@jlu@defenseYear}}{\@jlu@yearblank}年
-                \@jlu@ifDateExistsElse{\@jlu@defenseMonth}{\makebox[\@jlu@widthK][c]{\@jlu@defenseMonth}}{\@jlu@dayblank}月
-                \@jlu@ifDateExistsElse{\@jlu@defenseDay}{\makebox[\@jlu@widthK][c]{\@jlu@defenseDay}}{\@jlu@dayblank}日\\
-                授予学位日期：
-                \@jlu@ifDateExistsElse{\@jlu@degreeObtainYear}{\makebox[\@jlu@widthJ][c]{\@jlu@degreeObtainYear}}{\@jlu@yearblank}年
-                \@jlu@ifDateExistsElse{\@jlu@degreeObtainMonth}{\makebox[\@jlu@widthK][c]{\@jlu@degreeObtainMonth}}{\@jlu@dayblank}月
-                \@jlu@ifDateExistsElse{\@jlu@degreeObtainDay}{\makebox[\@jlu@widthK][c]{\@jlu@degreeObtainDay}}{\@jlu@dayblank}日
+                论文答辩日期：\@jlu@ifDateExists{\@jlu@defenseYear}{2}年\@jlu@ifDateExists{\@jlu@defenseMonth}{1}月\@jlu@ifDateExists{\@jlu@defenseDay}{1}日\\
+                授予学位日期：\@jlu@ifDateExists{\@jlu@degreeObtainYear}{2}年\@jlu@ifDateExists{\@jlu@degreeObtainMonth}{1}月\@jlu@ifDateExists{\@jlu@degreeObtainDay}{1}日
             }
             \fi    
         }
@@ -1246,10 +1246,7 @@
         
         \hspace{5cm}学位论文作者签名：\makebox(0,0)[c]{\@jlu@authorSignatureOne}
 
-        \hspace{5cm}日期：
-            \@jlu@ifDateExists{\@jlu@originalStatementYear}{2}年
-            \@jlu@ifDateExists{\@jlu@originalStatementMonth}{1}月
-            \@jlu@ifDateExists{\@jlu@originalStatementDay}{1}日
+        \hspace{5cm}日期：\@jlu@ifDateExists{\@jlu@originalStatementYear}{2}年\@jlu@ifDateExists{\@jlu@originalStatementMonth}{1}月\@jlu@ifDateExists{\@jlu@originalStatementDay}{1}日
     }
 } % end define \originalstatement
 
@@ -1296,7 +1293,9 @@
         
         \indent 作者签名：\makebox(0,0)[c]{\@jlu@authorSignatureTwo}\hphantom{一二三四五六七八}指导教师签名：\makebox(0,0)[c]{\@jlu@supervisorSignature}\\
         
-        \hspace*{7cm} \@jlu@ifDateExists{\@jlu@contributionStatementYear}{2}年\@jlu@ifDateExists{\@jlu@contributionStatementMonth}{1}月\@jlu@ifDateExists{\@jlu@contributionStatementDay}{1}日
+        %\hspace*{7cm} 
+        
+        \hphantom{啊啊啊啊啊啊啊啊啊啊啊啊啊啊}\@jlu@ifDateExists{\@jlu@contributionStatementYear}{2}年\@jlu@ifDateExists{\@jlu@contributionStatementMonth}{1}月\@jlu@ifDateExists{\@jlu@contributionStatementDay}{1}日\\
 
         \indent 作者联系地址（邮编）：\@jlu@cAddress \\
 
@@ -1399,7 +1398,7 @@
     {}
 
 
-
+% \RequirePackage[titletoc]{appendix}
 
 
 

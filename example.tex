@@ -18,7 +18,7 @@
 % 选项使用举例如下
 %\usepackage[phdplain,ebook,twoSideCover,onlyCover]{jluthesis2020}%
 %\usepackage[amd,hardcopy,twoSideCover]{jluthesis2020}%
-\usepackage[amd,hardcopy,noBlankPages]{jluthesis2020}%
+\usepackage[phdplain,hardcopy,noBlankPages]{jluthesis2020}%
 
 % 用于算法注释
 \usepackage{algcompatible}
@@ -105,20 +105,25 @@
 }
 
 % 以下日期若注释掉，对应的日期将留空
-\jluDateForCover{2020}{3}
-\jluDegreeObtainDate{2020}{7}{12}
-\jluDefenseDate{2020}{6}{12}
-\jluOriginalStatementDate{2020}{4}{1}
-\jluContributionStatementDate{2020}{5}{1}
+\jluDateForCover{2020}{4}
+\jluDegreeObtainDate{2020}{6}{21}
+\jluDefenseDate{2020}{5}{31}
+\jluOriginalStatementDate{2020}{6}{1}
+\jluContributionStatementDate{2020}{6}{1}
 
 \jluCommitteeTable{
-    \begin{tabular}{l@{\hspace{1.5cm}}l@{\hspace{1.5cm}}l@{\hspace{1.5cm}}l}
+	%\vspace{5cm}
+	\setstretch{1.32}
+    \begin{tabular}{l@{\hspace{0.5cm}}l@{\hspace{1.0cm}}l@{\hspace{1.5cm}}r}
     \multicolumn{4}{l}{答辩委员会组成：}\\
             &姓名 & 职称 & 工作单位 \\
-        主席&     &      &        \\
-        委员&     &      &        \\
+        主席&徐宜花& 教授 & XX大学   \\
+        委员&李辉京& 教授 & YYYY大学   \\
+           &刘世美& 教授 & ZZZZZZZZ大学   \\
+           &千允才& 教授 & AA大学   \\
+           &张英牧& 教授 & BB大学   \\
+           &尹\quad 凡& 研究员 & BB大学   \\
     \end{tabular}
-    \vspace{2cm}
 }
 
 \jluCAbstract{

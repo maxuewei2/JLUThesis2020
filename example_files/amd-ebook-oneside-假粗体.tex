@@ -1,5 +1,5 @@
 \documentclass[oneside,a4paper,12pt,AutoFakeBold]{book}%,AutoFakeBold,twoside,openright,
-% 可用选项有 debug|ebook|hardcopy, amd|pmd|phdplain|phdfancy, nobox, manualSpine, onlyCover, twoSideCover.
+% 可用选项有 debug|ebook|hardcopy, amd|pmd|phdplain|phdfancy, nobox, manualSpine, onlyCover, twoSideCover, noBlankPages.
 % debug 生成的PDF带框线，方便调试
 % ebook 带彩色文字的PDF
 % hardcopy 无彩色文字的PDF
@@ -11,7 +11,8 @@
 % manualSpine 手动输出书脊,需配合\jluManualSpine命令
 % onlyCover 仅输出封面页
 % twoSideCover 输出双页封面
-% 默认为 hardcopy,amd，且nobox=false，manualSpine=false，onlyCover=false，twoSideCover=false
+% noBlankPages 去掉空白页，主要用于上传到图书馆学位论文系统
+% 默认为 hardcopy,amd，且nobox=false，manualSpine=false，onlyCover=false，twoSideCover=false， noBlankPages=false
 % 双面印刷需在documentclass选项中声明twoside
 % 单面印刷需在documentclass选项中声明oneside
 % 选项使用举例如下
@@ -69,10 +70,10 @@
 %	\jluPrintVerticallyOneByOne{23cm}{-47em}{ 吉林大学 }{0.2in}{\kai}
 } % jluManualSpine
 \jluETitle{Sample Typesetting for {\jluthesisVersion}}
-\jluCSubject{计算机应用技术}   % 封面的『专业』或『类别』
-\jluCInterest{数据挖掘}  % 封面的『研究方向』或『领域（方向）』，博士精装版扉页的『研究方向』
-\jluCSubjectScd{计算机应用技术}  % 扉页的『专业名称』或『领域（方向）』
-\jluCSubjectTrd{计算机应用技术}  % 学位论文授权说明中的『学科专业』
+\jluCSubject{计算机应用技术}  % 封面的『专业』或『类别』
+\jluCInterest{数据挖掘} % 封面的『研究方向』或『领域（方向）』，博士精装版扉页的『研究方向』
+\jluCSubjectScd{计算机应用技术} % 扉页的『专业名称』或『领域（方向）』
+\jluCSubjectTrd{计算机应用技术} % 学位论文授权说明中的『学科专业』
 \jluCDegree{工学硕士} % 扉页的『学位类别』或『类别』
 \jluCCollege{计算机科学与技术学院}
 \jluCollegeNumber{10183}
@@ -106,20 +107,25 @@
 }
 
 % 以下日期若注释掉，对应的日期将留空
-\jluDateForCover{2020}{3}
-\jluDegreeObtainDate{2020}{7}{12}
-\jluDefenseDate{2020}{6}{12}
-\jluOriginalStatementDate{2020}{4}{1}
-\jluContributionStatementDate{2020}{5}{1}
+\jluDateForCover{2020}{4}
+\jluDegreeObtainDate{2020}{6}{21}
+\jluDefenseDate{2020}{5}{31}
+\jluOriginalStatementDate{2020}{6}{1}
+\jluContributionStatementDate{2020}{6}{1}
 
 \jluCommitteeTable{
-    \begin{tabular}{l@{\hspace{1.5cm}}l@{\hspace{1.5cm}}l@{\hspace{1.5cm}}l}
+	%\vspace{5cm}
+	\setstretch{1.32}
+    \begin{tabular}{l@{\hspace{0.5cm}}l@{\hspace{1.0cm}}l@{\hspace{1.5cm}}r}
     \multicolumn{4}{l}{答辩委员会组成：}\\
             &姓名 & 职称 & 工作单位 \\
-        主席&     &      &        \\
-        委员&     &      &        \\
+        主席&徐宜花& 教授 & XX大学   \\
+        委员&李辉京& 教授 & YYYY大学   \\
+           &刘世美& 教授 & ZZZZZZZZ大学   \\
+           &千允才& 教授 & AA大学   \\
+           &张英牧& 教授 & BB大学   \\
+           &尹\quad 凡& 研究员 & BB大学   \\
     \end{tabular}
-    \vspace{2cm}
 }
 
 \jluCAbstract{
