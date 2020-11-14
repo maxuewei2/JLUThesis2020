@@ -1,0 +1,7 @@
+字体下载
+- https://github.com/dolbydu/font/tree/master/unicode
+- https://github.com/adobe-fonts/source-han-sans/releases/download/2.002R/SourceHanSans.ttc
+- https://github.com/adobe-fonts/source-han-serif/releases/download/1.001R/SourceHanSerif.ttc
+- https://www.fontsquirrel.com/fonts/download/nimbus-roman-no9-l
+- https://www.fontsquirrel.com/fonts/download/nimbus-mono
+- https://www.fontsquirrel.com/fonts/download/nimbus-sans-l
