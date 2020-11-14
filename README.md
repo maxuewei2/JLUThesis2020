@@ -44,17 +44,17 @@
 	\usepackage[amd,hardcopy]{jluthesis2020}
 	```
 
-- 单面印刷需设置 documentclass 为 oneside，双面印刷需设置 documentclass 为 twoside。
+- 单面印刷需设置 documentclass 为 oneside (如`\documentclass[twoside,a4paper,12pt]{book}`)，双面印刷需设置 documentclass 为 twoside (如`\documentclass[oneside,a4paper,12pt]{book}`)。
 - 建议安装 TeX Live 并使用 XeLaTeX 编译。<br/>
   校内可在[吉大镜像站](http://mirrors.jlu.edu.cn/CTAN/systems/texlive/tlnet/install-tl.zip)下载 TeX Live。
-- 若缺少字体需自行安装。所需字体如下：
+- 若缺少字体需自行安装 (见[fonts.txt](fonts.txt))。所需字体如下：
 	- Adobe Song Std，Adobe Heiti Std，Adobe Kaiti Std，Adobe Fangsong Std
 	- Nimbus Roman，Nimbus Sans，Nimbus Mono
-	- Source Han Sans CN，Source Han Sans CN Heavy (思源黑体粗体)，Source Han Serif CN Heavy (思源宋体粗体)
+	- Source Han Sans(思源黑体)，Source Han Serif(思源宋体)
 	- LiSu (隶书)
 
-	安装字体后，Linux 用户可运行 `fc-cache` 刷新字体缓存，可通过 ` fc-list : family | sort ` 查看已安装字体。 
-
+	安装字体后，可运行 `fc-cache` 刷新字体缓存，可通过 ` fc-list : family | sort ` 查看已安装字体。这两个命令均随TeX Live安装，在如`C:\texlive\2020\bin\win32`的文件夹下可找到。<br/> 
+    若编译时提示找不到字体，先检测字体是否已安装，再检测字体名称是否一致。
 - 若要使用此模板生成的 PDF 文档查重，需确保 PDF 能够正常复制出汉字。
 
 - 要生成 MS Word 文档，可使用 pandoc 或 Adobe Acrobat DC，也可直接用 MS Word 打开 PDF 得到 Word 文档，只是这三种方式得到的 Word 文档质量不同。
