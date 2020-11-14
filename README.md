@@ -53,18 +53,24 @@
 	- Source Han Sans(思源黑体)，Source Han Serif(思源宋体)
 	- LiSu (隶书)
 
-	安装字体后，可运行 `fc-cache` 刷新字体缓存，可通过 ` fc-list : family | sort ` 查看已安装字体。这两个命令均随TeX Live安装，在如`C:\texlive\2020\bin\win32`的文件夹下可找到。<br/> 
+	安装字体后，可运行 `fc-cache` 刷新字体缓存，可通过 ` fc-list : family | sort ` 查看已安装字体。<br/>
+    这两个命令均随 TeX Live 安装，Windows 下在如 `C:\texlive\2020\bin\win32` 的文件夹下可找到，可将该文件夹添加进 PATH 环境变量。<br/> 
     若编译时提示找不到字体，先检测字体是否已安装，再检测字体名称是否一致。
 - 若要使用此模板生成的 PDF 文档查重，需确保 PDF 能够正常复制出汉字。
 
 - 要生成 MS Word 文档，可使用 pandoc 或 Adobe Acrobat DC，也可直接用 MS Word 打开 PDF 得到 Word 文档，只是这三种方式得到的 Word 文档质量不同。
 
-- 查重时可能会把原创声明、授权声明、参考文献、致谢等包括进去，Linux 用户可使用 `makeCrosscheckVersion.sh` 制作查重版本，生成的 PDF 文档中原创声明、授权声明、作者简介、致谢四部分的文字被转换为路径，因此这四部分无法导出无法复制，也就不会参与查重。之所以没将参考文献也做成不可复制的，是觉得查重系统会从这里面提取引用。<br/>
+- 查重时可能会把原创声明、授权声明、参考文献、致谢等包括进去，可使用 `makeCrosscheckVersion.sh` 制作查重版本，生成的 PDF 文档中原创声明、授权声明、作者简介、致谢四部分的文字被转换为路径，因此这四部分无法导出无法复制，也就不会参与查重。之所以没将参考文献也做成不可复制的，是觉得查重系统会从这里面提取引用。<br/>
 使用方法：
 	```bash
 	chmod a+x makeCrosscheckVersion.sh
 	./makeCrosscheckVersion.sh example  # example为PDF文件名，不包括扩展名
 	```
+执行此脚本需
+    - 安装 [pdftk](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/)、[Ghostscript](https://www.ghostscript.com/download/gsdnld.html) 并将其路径加入 PATH 环境变量
+    - 将 TeX Live 可执行文件路径加入 PATH 环境变量
+    - 有类 Linux 环境，可执行 cat、grep、awk、head 等命令
+        - Windows下安装 [Git](https://git-scm.com/downloads) 并使用 Git Bash 可得到
 - 思源宋体粗体可能看起来与 MS Word 中的粗体差别较大。若以假粗体实现粗体来生成的文档大概更接近 MS Word 的感觉，但似乎偶尔会出现奇奇怪怪的问题 (如部分字无法选中、该加粗的字没有加粗、不该加粗的字被加粗了等)，不过好在只有封面、摘要、章节题目等少数几个地方需要使用粗体。使用假粗体需在 documentclass 中设置 AutoFakeBold， 在 jluthesis2020 中设置 manualSpine，并需重置 CJKmainfont，具体见 [amd-ebook-oneside-假粗体.tex](example_files/amd-ebook-oneside-假粗体.tex)。本人所提交的论文采用假粗体方案。
 
 ## 免责声明
