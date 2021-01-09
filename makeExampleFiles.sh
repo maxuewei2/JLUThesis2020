@@ -15,7 +15,7 @@ compile(){
 # documentclass 需设置 AutoFakeBold， jluthesis2020 需设置 manualSpine， 需重置CJKmainfont
 sed 's/\documentclass\[.*\]/\documentclass\[oneside,a4paper,12pt,AutoFakeBold\]/' example.tex | \
 sed 's/^\\usepackage\[.*\]{jluthesis2020}/\\usepackage\[amd,ebook,manualSpine\]{jluthesis2020}/' | \
-sed 's/\\usepackage{hyperxmp}/\\usepackage{hyperxmp}\n\\setCJKmainfont{Adobe Song Std}\n\\setCJKfamilyfont{song}{Adobe Song Std}/' |\
+sed 's/\\usepackage{listings}/\\usepackage{listings}\n\\setCJKmainfont{Adobe Song Std}\n\\setCJKfamilyfont{song}{Adobe Song Std}/' |\
 sed 's/\\jluCDegree{.*} /\\jluCDegree{工学硕士}/' |\
 sed 's/\\jluCSubject{.*} /\\jluCSubject{计算机应用技术}/' |\
 sed 's/\\jluCSubjectScd{.*} /\\jluCSubjectScd{计算机应用技术}/' |\
