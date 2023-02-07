@@ -11,6 +11,12 @@
 ## 示例
 
 示例文档见 [example_files](example_files) 下各文件。
+<details>
+<summary>
+图例
+</summary>
+<img src="https://user-images.githubusercontent.com/13077408/217285061-b9992a89-864e-4d3d-9f57-2b0a68906309.png" width="80%"/>
+</details>
 
 使用示例见 [example.tex](example.tex)。
 
