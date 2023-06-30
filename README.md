@@ -4,8 +4,6 @@
 
 可生成学硕、专硕、博士简装、博士精装 PDF 论文，可生成单面或双面印刷版本，可生成单页或双页封面。
 
-[Overleaf 模板](https://www.overleaf.com/latex/templates/jlu-thesis-2020/rdnmpjmrtqvc) (因字体版权原因，该模板中使用开源字体，隶书等字体需自己修改模板并上传字体)
-
 
 
 ## 示例
