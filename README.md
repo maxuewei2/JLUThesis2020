@@ -50,7 +50,7 @@
 
 - 单面印刷需设置 documentclass 为 oneside (如`\documentclass[twoside,a4paper,12pt]{book}`)，双面印刷需设置 documentclass 为 twoside (如`\documentclass[oneside,a4paper,12pt]{book}`)。
 - 建议安装 TeX Live 并使用 XeLaTeX 编译。<br/>
-  校内可在[吉大镜像站](http://mirrors.jlu.edu.cn/CTAN/systems/texlive/tlnet/install-tl.zip)下载 TeX Live。
+  校内可在[吉大镜像站](https://mirrors.jlu.edu.cn/CTAN/systems/texlive/tlnet/install-tl.zip)下载 TeX Live。
 - 若缺少字体需自行安装 (见[fonts.txt](fonts.txt))。所需字体如下：
 	- Adobe Song Std，Adobe Heiti Std，Adobe Kaiti Std，Adobe Fangsong Std
 	- Nimbus Roman，Nimbus Sans，Nimbus Mono
