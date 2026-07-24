@@ -427,7 +427,7 @@
 \XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
 
 
-\setCJKmainfont[BoldFont=Source Han Serif SC Heavy]{Adobe Song Std}   % 中文缺省字体
+\setCJKmainfont[BoldFont=Source Han Serif SC Heavy]{Source Han Serif SC}   % 中文缺省字体
 \setCJKsansfont[BoldFont=Source Han Sans SC Heavy]{Source Han Sans SC} % 中文无衬线字体Adobe Heiti Std
 \setCJKmonofont{Adobe Kaiti Std}    % 中文数学字体
 
@@ -597,8 +597,6 @@
 \DeclareCaptionLabelSeparator{oneChineseCharacter}{\hphantom{空}}
 \captionsetup{labelsep=oneChineseCharacter}
 
-\RequirePackage{algorithm}
-
 
 \newcommand{\jluRightMark}{{\@jlu@cUniversity}{\@jlu@degreeName}学位论文}
 % 设定页眉页脚
@@ -651,7 +649,7 @@
 
 %\RequirePackage{graphicx}
 %\RequirePackage{textcomp}
-%\RequirePackage{xcolor}
+\RequirePackage[dvipsnames,svgnames]{xcolor}
 \RequirePackage{fancybox}    % produce box-contained texts
 %\RequirePackage[inline]{enumitem}
 %\RequirePackage{url}
@@ -670,7 +668,6 @@
 \renewcommand{\tablename}{表}
 \newcommand{\equationname}{公式}
 
-\renewcommand{\ALG@name}{算法}
 
 \renewcommand{\appendixname}{附录}
 \newcommand{\CJKprechaptername}{第}
